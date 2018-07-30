@@ -1,0 +1,33 @@
+druid:
+    url: jdbc:mysql://localhost:3306/design?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true
+    username: root
+    password: root
+    initial-size: 1
+    min-idle: 1
+    max-active: 20
+    test-on-borrow: true
+    driver-class: com.mysql.jdbc.Driver
+
+spring:
+    redis:
+        host: localhost
+        port: 6379
+        database: 1
+        pool:
+            max-active: 100
+            max-wait: -1
+            max-total: 500
+            max-idle: 500
+            min-idle: 0
+        timeout: 0
+        password:
+
+    rabbitmq:
+        host: localhost
+        port: 5672
+        username: guest
+        password: guest
+        publisher-confirms: true
+        virtual-host: /
+        listener:
+          acknowledge-mode: manual

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>battcn websocket</title>
+  <script src="jquery-3.2.1.min.js"></script>
+</head>
+<body>
+
+<label for="message_content">聊&nbsp;&nbsp;天&nbsp;&nbsp;室&nbsp;</label>
+
+<textarea id="message_content" readonly="readonly" cols="57" rows="10">
+
+</textarea>
+
+<br/>
+
+
+<label for="in_user_name">用户姓名 &nbsp;</label><input id="in_user_name" value=""/>
+<button id="btn_join">加入聊天室</button>
+<button id="btn_exit">离开聊天室</button>
+
+<br/><br/>
+
+<label for="in_room_msg">群发消息 &nbsp;</label><input id="in_room_msg" value=""/>
+<button id="btn_send_all">发送消息</button>
+
+
+<br/><br/><br/>
+
+好友聊天
+<br/>
+<label for="in_sender">发送者 &nbsp;</label><input id="in_sender" value=""/><br/>
+<label for="in_receive">接受者 &nbsp;</label><input id="in_receive" value=""/><br/>
+<label for="in_point_message">消息体 &nbsp;</label><input id="in_point_message" value=""/><button id="btn_send_point">发送消息</button>
+
+</body>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        var urlPrefix ='ws://localhost:6060/design/chat-room/';
+        var ws = null;
+        $('#btn_join').click(function(){
+            var username = $('#in_user_name').val();
+            var url = urlPrefix + username;
+            ws = new WebSocket(url);
+
+            //前端建立websocket时调用(new WebSocket(url))，与后台@OnOpen注解响应
+            ws.onopen = function () {
+                console.log("["+username+"]正在建立 websocket 连接..."+dateFtt("yyyy-MM-dd hh:mm:ss",new Date()));
+            };
+
+            //前端断开websocket时调用(ws.close())，与后台@OnClose注解响应
+            ws.onclose = function(){
+                console.log("["+username+"]正在关闭 websocket 连接..."+dateFtt("yyyy-MM-dd hh:mm:ss",new Date()));
+                $('#message_content').append('用户['+username+'] 已经离开聊天室!');
+            };
+
+            //监听后台每次调用的basic.sendText()方法，并进行页面数据展示;
+            ws.onmessage = function(event){
+                console.log("["+username+"]正在接收 服务端 消息 - ["+event.data+"] - "+dateFtt("yyyy-MM-dd hh:mm:ss",new Date()));
+                $('#message_content').append(event.data+'\n');
+            };
+        });
+
+        //客户端发送消息到服务器
+        $('#btn_send_all').click(function(){
+            var msg = $('#in_room_msg').val();
+            if(ws){
+                //主动发送消息时调用，与后台@OnMessage注解响应
+                ws.send(msg);
+            }
+        });
+
+        // 退出聊天室
+        $('#btn_exit').click(function(){
+            if(ws){
+                ws.close();
+            }
+        });
+
+        $("#btn_send_point").click(function() {
+           var sender = $("#in_sender").val();
+           var receive = $("#in_receive").val();
+            var message = $("#in_point_message").val();
+           $.get("/design/chat-room/"+sender+"/to/"+receive+"?message="+message,function() {
+              alert("发送成功...")
+           })
+        })
+
+        //日期格式化
+        function dateFtt(fmt,date)
+        { //author: meizz
+            var o = {
+                "M+" : date.getMonth()+1,                 //月份
+                "d+" : date.getDate(),                    //日
+                "h+" : date.getHours(),                   //小时
+                "m+" : date.getMinutes(),                 //分
+                "s+" : date.getSeconds(),                 //秒
+                "q+" : Math.floor((date.getMonth()+3)/3), //季度
+                "S"  : date.getMilliseconds()             //毫秒
+            };
+            if(/(y+)/.test(fmt))
+                fmt=fmt.replace(RegExp.$1, (date.getFullYear()+"").substr(4 - RegExp.$1.length));
+            for(var k in o)
+                if(new RegExp("("+ k +")").test(fmt))
+                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+            return fmt;
+        }
+    })
+</script>
+
+</html>
