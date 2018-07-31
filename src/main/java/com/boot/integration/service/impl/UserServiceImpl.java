@@ -3,15 +3,12 @@ package com.boot.integration.service.impl;
 import com.boot.integration.conf.redis.RedisUtil;
 import com.boot.integration.constant.ResponseDto;
 import com.boot.integration.constant.ResponseEnum;
-import com.boot.integration.controller.ObjectController;
 import com.boot.integration.mapper.UserMapper;
 import com.boot.integration.model.User;
 import com.boot.integration.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/object")
-public class ObjectController {
+@RequestMapping("/jsonObject")
+public class JSONObjectController {
 
-    private static final Logger log = LoggerFactory.getLogger(ObjectController.class);
+    private static final Logger log = LoggerFactory.getLogger(JSONObjectController.class);
 
     public static final ObjectMapper objectMapper = new ObjectMapper();
 
