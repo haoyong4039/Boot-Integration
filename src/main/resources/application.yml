@@ -14,6 +14,7 @@ spring:
 logging:
     level:
         com.boot.integration.mapper: debug
+    file: log/boot.log
 
 mybatis:
     type-aliases-package: com.boot.integration.model
