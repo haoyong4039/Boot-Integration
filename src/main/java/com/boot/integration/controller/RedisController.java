@@ -2,6 +2,8 @@ package com.boot.integration.controller;
 
 import com.boot.integration.conf.redis.RedisUtil;
 import com.boot.integration.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/redis")
 public class RedisController {
+
+    private static final Logger log = LoggerFactory.getLogger(RedisController.class);
 
     @Autowired
     private RedisUtil redisUtil;
@@ -39,6 +43,6 @@ public class RedisController {
         keys.add("keyOne");
         keys.add("keyTwo");
         List<Object> values = redisUtil.multiGet(keys);
-        System.out.println((User)values.get(1));
+        log.info("[user] - [{}]",values);
     }
 }
