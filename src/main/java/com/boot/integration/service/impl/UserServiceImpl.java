@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -34,14 +35,17 @@ public class UserServiceImpl implements UserService {
 
         String key = "userRoles";
 
-        if (redisUtil.hasKey(key)){
+        boolean iKey = redisUtil.hasKey(key);
+        List<User> userList = new ArrayList<>();
+
+        if (iKey){
             log.info("[data from] - [redis]");
-            return new ResponseDto<>(ResponseEnum.USER_ROLE_SUCCESS,null,(List<User>) redisUtil.getValue(key));
+            userList = (List<User>) redisUtil.getValue(key);
         }else {
             log.info("[data from] - [mysql]");
-            List<User> userList = userMapper.queryUserRole();
+            userList = userMapper.queryUserRole();
             redisUtil.setValue(key,userList,60, TimeUnit.SECONDS);
-            return new ResponseDto<>(ResponseEnum.USER_ROLE_SUCCESS,null,userList);
         }
+        return new ResponseDto<>(ResponseEnum.USER_ROLE_SUCCESS,null,userList);
     }
 }
