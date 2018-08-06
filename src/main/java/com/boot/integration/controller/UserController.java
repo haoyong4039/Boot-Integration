@@ -22,6 +22,7 @@ public class UserController {
     /*
       token获取
       http://localhost:6060/design/oauth/token?username=${_this.ruleForm2.account}&password=${_this.ruleForm2.checkPass}&grant_type=password&client_id=client&client_secret=secret
+      mvn package -DskipTests（跳过测试打包）
      */
 
     @PreAuthorize("hasAnyRole('ADMIN')")
