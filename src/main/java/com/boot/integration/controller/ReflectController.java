@@ -14,7 +14,6 @@ import java.lang.reflect.Modifier;
 @RequestMapping("/reflect")
 public class ReflectController {
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/test",method = RequestMethod.GET)
     public void testReflect(){
         try {

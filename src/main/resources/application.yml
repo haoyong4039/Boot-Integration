@@ -31,3 +31,8 @@ pagehelper:
     reasonable: true
     supportMethodsArguments: true
     params: count=countSql
+
+security:
+  oauth2:
+    resource:
+      filter-order: 3
