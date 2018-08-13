@@ -65,10 +65,16 @@ public class OAuth2Configuration {
         private AuthenticationManager authenticationManager;
 
         @Override
-        public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
             endpoints
                     .tokenStore(tokenStore())
                     .authenticationManager(authenticationManager);
+        }
+
+        @Override
+        public void configure(AuthorizationServerSecurityConfigurer oauthServer) {
+            //允许表单认证
+            oauthServer.allowFormAuthenticationForClients();
         }
 
         @Override
@@ -82,12 +88,6 @@ public class OAuth2Configuration {
                     .secret("secret")
                     .accessTokenValiditySeconds(60 * 1)
                     .refreshTokenValiditySeconds(60 * 60 * 24);
-        }
-
-        @Override
-        public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-            //允许表单认证
-            oauthServer.allowFormAuthenticationForClients();
         }
     }
 
