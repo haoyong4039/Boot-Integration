@@ -22,6 +22,8 @@ public class UserController {
     /*
       token获取
       http://localhost:6060/design/oauth/token?username=${_this.ruleForm2.account}&password=${_this.ruleForm2.checkPass}&grant_type=password&client_id=client&client_secret=secret
+      token刷新
+      http://localhost:6060/design/oauth/token?grant_type=refresh_token&refresh_token=1d749fbf-88f1-4b1d-a222-8d7ebead337c&client_id=client&client_secret=secret
       mvn package -DskipTests（跳过测试打包）
      */
 
