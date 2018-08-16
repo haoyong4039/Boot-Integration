@@ -86,7 +86,7 @@ public class OAuth2Configuration {
                     .authorities("ROLE_ADMIN", "ROLE_USER")
                     .authorizedGrantTypes("password", "refresh_token")
                     .secret("secret")
-                    .accessTokenValiditySeconds(60 * 1)
+                    .accessTokenValiditySeconds(60 * 60)
                     .refreshTokenValiditySeconds(60 * 60 * 24);
         }
     }
