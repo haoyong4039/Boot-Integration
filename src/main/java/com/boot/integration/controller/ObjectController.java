@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,12 +46,12 @@ public class ObjectController
     @RequestMapping(value = "/json",method = RequestMethod.POST)
     public void readValue(@RequestBody JSONObject jsonObject){
 
-        log.info("[username] - [{}]......[password] - [{}]",jsonObject.getString("username"),jsonObject.getString("password"));
+        log.info("[username] - {}......[password] - {}",jsonObject.getString("username"),jsonObject.getString("password"));
 
         try {
 
             User user = objectMapper.readValue(String.valueOf(jsonObject),User.class);
-            log.info("[user] - [{}]",user);
+            log.info("[user] - {}",user);
 
         } catch (IOException e) {
 
@@ -102,6 +105,78 @@ public class ObjectController
         }
         catch (IOException e)
         {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *
+     * <pre>
+     * <一句话功能简述>
+     * 反射
+     * <功能详细描述>
+     * </pre>
+     *
+     * @author haoyong
+     * @version [版本号, 2018年8月16日]
+     * @see [相关类/方法]
+     * @since [产品/模块版本]
+     */
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @RequestMapping(value = "/reflect",method = RequestMethod.GET)
+    public void reflect(){
+        try {
+            //获取class对象
+            Class<?> clazz = new User().getClass();
+
+            //获取该类中的所有属性
+            Field[] fields = clazz.getDeclaredFields();
+            //遍历所有的属性
+            System.out.println("************************Class属性**************************");
+            for (Field field:fields){
+                System.out.println(field);
+                System.out.println("修饰符："+Modifier.toString(field.getModifiers()));
+                System.out.println("类型：" + field.getType());
+                System.out.println("属性名：" + field.getName());
+                System.out.println();
+            }
+            System.out.println("**********************************************************");
+
+            //获取该类中所有的方法
+            Method[] methods = clazz.getDeclaredMethods();
+            //遍历方法
+            System.out.println("************************Class方法**************************");
+            for (Method method:methods){
+                // 打印方法签名
+                System.out.println(method);
+                System.out.println("修饰符：" + Modifier.toString(method.getModifiers()));
+                System.out.println("方法名：" + method.getName());
+                System.out.println("返回类型：" + method.getReturnType());
+                // 获取方法的参数对象
+                Class<?>[] clazzes = method.getParameterTypes();
+                for (Class<?> class1 : clazzes) {
+                    System.out.println("参数类型：" + class1);
+                }
+                System.out.println();
+            }
+            System.out.println("**********************************************************");
+
+
+            // 通过Class对象创建实例
+            User user = (User) clazz.newInstance();
+            // username(Field)对象，以便下边重新设置它的值
+            Field username = clazz.getDeclaredField("username");
+            //私有属性授权
+            username.setAccessible(true);
+            // 设置username的值为”Mr.hao“
+            username.set(user, "Mr.hao");
+            // 通过Class对象获取名为”setPassword“，参数类型为String的方法(Method)对象
+            Method setPassword = clazz.getMethod("setPassword", String.class);
+            // 调用finishTask方法
+            setPassword.invoke(user, "123456");
+
+            System.out.println(user);
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
