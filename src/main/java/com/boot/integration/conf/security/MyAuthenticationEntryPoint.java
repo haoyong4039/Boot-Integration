@@ -14,11 +14,14 @@ import java.io.IOException;
  * 自定义401错误码内容
  */
 @Component
-public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
+public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint
+{
 
     private final Logger log = LoggerFactory.getLogger(MyAuthenticationEntryPoint.class);
 
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException ae) throws IOException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException ae)
+        throws IOException
+    {
 
         log.info("pre-authenticated entry point called. Rejecting access");
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Access Denied");

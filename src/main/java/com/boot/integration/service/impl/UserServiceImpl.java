@@ -33,11 +33,10 @@ public class UserServiceImpl implements UserService
     @Autowired
     private RedisUtil redisUtil;
 
-    public List<User> queryUserRoles(Long userId)
-        throws CustomException
+    public List<User> queryUserRoles(Long userId) throws CustomException
     {
 
-        String key = "UserRoles-"+userId;
+        String key = "UserRoles-" + userId;
 
         boolean iKey = redisUtil.hasKey(key);
 
@@ -57,7 +56,8 @@ public class UserServiceImpl implements UserService
 
                 log.info("[queryUserRoles from] - [mysql] - data:{}", userList);
 
-                if (userList.size() == 0){
+                if (userList.size() == 0)
+                {
                     throw new CustomException(CustomCode.ERROR_USER_NOT_EXIST.getValue());
                 }
                 redisUtil.setValue(key, userList, 60, TimeUnit.SECONDS);

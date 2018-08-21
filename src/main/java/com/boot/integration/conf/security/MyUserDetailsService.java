@@ -19,26 +19,31 @@ import java.util.Iterator;
  * Created by haoyong on 2018/1/4.
  */
 @Component
-public class MyUserDetailsService implements UserDetailsService {
+public class MyUserDetailsService implements UserDetailsService
+{
 
     @Autowired
     private UserMapper userMapper;
+
     @Autowired
     private RoleMapper roleMapper;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
+    {
         User user = new User();
         user.setUsername(username);
         user = userMapper.selectOne(user);
 
-        if (user == null) {
+        if (user == null)
+        {
             throw new MyUsernameNotFoundException("User " + username + " was not found in the database");
         }
 
         Collection<SimpleGrantedAuthority> collection = new HashSet<SimpleGrantedAuthority>();
         Iterator<Role> iterator = roleMapper.queryRoleByUid(user.getId()).iterator();
-        while (iterator.hasNext()) {
+        while (iterator.hasNext())
+        {
             collection.add(new SimpleGrantedAuthority(iterator.next().getName()));
         }
 

@@ -11,7 +11,8 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MyMqttClient {
+public class MyMqttClient
+{
 
     private final Logger log = LoggerFactory.getLogger(MyMqttClient.class);
 
@@ -27,7 +28,8 @@ public class MyMqttClient {
     // MQTT的连接设置
     private MqttConnectOptions mqttConnectOptions;
 
-    public MyMqttClient(MqttConfig mqttConfig, String[] topic) {
+    public MyMqttClient(MqttConfig mqttConfig, String[] topic)
+    {
         this.mqttConfig = mqttConfig;
         this.topic = topic;
     }
@@ -39,8 +41,10 @@ public class MyMqttClient {
      * <功能详细描述>
      * </pre>
      */
-    public void connect() {
-        try {
+    public void connect()
+    {
+        try
+        {
 
             log.info("params[{},topic:{}]", mqttConfig.toString(), topic);
 
@@ -69,20 +73,24 @@ public class MyMqttClient {
             mqttClient.setCallback(new Callback());
 
             // setWill方法，如果项目中需要知道客户端是否掉线可以调用该方法。设置最终端口的通知消息
-            if (StringUtils.isNotEmpty(mqttConfig.getWillTopic()) && StringUtils.isNotEmpty(mqttConfig.getWillMsg())) {
+            if (StringUtils.isNotEmpty(mqttConfig.getWillTopic()) && StringUtils.isNotEmpty(mqttConfig.getWillMsg()))
+            {
                 mqttConnectOptions.setWill(mqttConfig.getWillTopic(), mqttConfig.getWillMsg().getBytes(), 2, true);
             }
 
             mqttClient.connect(mqttConnectOptions);
 
-            if (topic.length > 0) {
+            if (topic.length > 0)
+            {
                 mqttClient.subscribe(topic, getQos(topic.length));
 
             }
 
             log.info("Init mqtt client is successfully.params[{}]", mqttConfig.toString());
 
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             log.error("Init mqtt client is fail.params[{}]", mqttConfig.toString());
             e.printStackTrace();
         }
@@ -95,8 +103,10 @@ public class MyMqttClient {
      * <功能详细描述>
      * </pre>
      */
-    public void sendMsg(String topic, String msg) {
-        try {
+    public void sendMsg(String topic, String msg)
+    {
+        try
+        {
             log.debug("params[msg:{},topic:{}]", msg, topic);
 
             MqttMessage message = new MqttMessage();
@@ -116,7 +126,9 @@ public class MyMqttClient {
             token.waitForCompletion();
 
             log.debug("Send msg is successfully.[msg:{},topic:{}]", msg, topic);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             log.error("Send msg is fail.params[topic:{},msg:{}]", topic, msg);
             log.error(topic, e);
         }
@@ -130,10 +142,12 @@ public class MyMqttClient {
      * <功能详细描述>
      * </pre>
      */
-    private int[] getQos(int topicCount) {
+    private int[] getQos(int topicCount)
+    {
         int[] qos = new int[topicCount];
 
-        for (int i = 0; i < topicCount; i++) {
+        for (int i = 0; i < topicCount; i++)
+        {
             qos[i] = 1;
         }
         return qos;
@@ -146,32 +160,43 @@ public class MyMqttClient {
      * <功能详细描述>
      * </pre>
      */
-    class Callback implements MqttCallback {
+    class Callback implements MqttCallback
+    {
 
-        public void connectionLost(Throwable cause) {
+        public void connectionLost(Throwable cause)
+        {
             // 连接丢失后，一般在这里面进行重连
             log.info("Mqtt connection is lost");
 
-            synchronized (this) {
-                while (true) {
-                    try {
+            synchronized (this)
+            {
+                while (true)
+                {
+                    try
+                    {
                         connect();
                         log.info("{},Mqtt recconnection is successfully.", mqttConfig.toString());
 
                         break;
-                    } catch (Exception e) {
+                    }
+                    catch (Exception e)
+                    {
                         log.error("{},Mqtt recconnection is fail.", mqttConfig.toString(), e);
 
-                        try {
+                        try
+                        {
                             Thread.sleep(5000);
-                        } catch (InterruptedException e1) {
+                        }
+                        catch (InterruptedException e1)
+                        {
                         }
                     }
                 }
             }
         }
 
-        public void deliveryComplete(IMqttDeliveryToken token) {
+        public void deliveryComplete(IMqttDeliveryToken token)
+        {
             log.info("deliveryComplete---------" + token.isComplete());
         }
 
@@ -182,7 +207,8 @@ public class MyMqttClient {
          * <功能详细描述>
          * </pre>
          */
-        public void messageArrived(String topic, MqttMessage message) {
+        public void messageArrived(String topic, MqttMessage message)
+        {
             // subscribe后得到的消息会执行到这里面
             StringBuffer stringBuffer = new StringBuffer();
             stringBuffer.append("接收消息主题 : " + topic + " ");

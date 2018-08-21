@@ -2,7 +2,6 @@ package com.boot.integration.exeption;
 
 public enum CustomCode
 {
-
     SUCCESS(0),
 
     ERROR_SYSTEM(-1),
@@ -11,15 +10,18 @@ public enum CustomCode
 
     private int value;
 
-    CustomCode(int value) {
+    CustomCode(int value)
+    {
         this.value = value;
     }
 
-    public int getValue() {
+    public int getValue()
+    {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(int value)
+    {
         this.value = value;
     }
 }

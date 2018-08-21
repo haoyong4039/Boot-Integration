@@ -5,7 +5,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Table(name = "design_user_role")
-public class UserRole implements Serializable {
+public class UserRole implements Serializable
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,70 +25,80 @@ public class UserRole implements Serializable {
     /**
      * @return id
      */
-    public Long getId() {
+    public Long getId()
+    {
         return id;
     }
 
     /**
      * @param id
      */
-    public void setId(Long id) {
+    public void setId(Long id)
+    {
         this.id = id;
     }
 
     /**
      * @return user_id
      */
-    public Long getUserId() {
+    public Long getUserId()
+    {
         return userId;
     }
 
     /**
      * @param userId
      */
-    public void setUserId(Long userId) {
+    public void setUserId(Long userId)
+    {
         this.userId = userId;
     }
 
     /**
      * @return role_id
      */
-    public Long getRoleId() {
+    public Long getRoleId()
+    {
         return roleId;
     }
 
     /**
      * @param roleId
      */
-    public void setRoleId(Long roleId) {
+    public void setRoleId(Long roleId)
+    {
         this.roleId = roleId;
     }
 
     /**
      * @return version
      */
-    public Long getVersion() {
+    public Long getVersion()
+    {
         return version;
     }
 
     /**
      * @param version
      */
-    public void setVersion(Long version) {
+    public void setVersion(Long version)
+    {
         this.version = version;
     }
 
     /**
      * @return creation_date
      */
-    public Date getCreationDate() {
+    public Date getCreationDate()
+    {
         return creationDate;
     }
 
     /**
      * @param creationDate
      */
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(Date creationDate)
+    {
         this.creationDate = creationDate;
     }
 }

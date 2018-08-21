@@ -2,9 +2,11 @@ package com.boot.integration.conf.mtqq;
 
 import java.util.Scanner;
 
-public class ClientOne {
+public class ClientOne
+{
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         MqttConfig mqttConfig = new MqttConfig();
         mqttConfig.setUri("tcp://127.0.0.1:61613");
         mqttConfig.setClientId("clientOne");
@@ -19,7 +21,8 @@ public class ClientOne {
 
         Scanner in = new Scanner(System.in);
 
-        while (true) {
+        while (true)
+        {
             myMqttClient.sendMsg("two", in.nextLine());
         }
     }

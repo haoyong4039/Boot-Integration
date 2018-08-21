@@ -1,6 +1,7 @@
 package com.boot.integration.conf.mtqq;
 
-public class MqttConfig {
+public class MqttConfig
+{
 
     //连接mqtt客户端id
     private String clientId;
@@ -26,74 +27,91 @@ public class MqttConfig {
     // 设置会话心跳时间 单位为秒 服务器会每隔1.5*20秒的时间向客户端发送个消息判断客户端是否在线，但这个方法并没有重连的机制(单位秒)
     private int keepAliveInterval = 60;
 
-    public String getClientId() {
+    public String getClientId()
+    {
         return clientId;
     }
 
-    public void setClientId(String clientId) {
+    public void setClientId(String clientId)
+    {
         this.clientId = clientId;
     }
 
-    public String getUri() {
+    public String getUri()
+    {
         return uri;
     }
 
-    public void setUri(String uri) {
+    public void setUri(String uri)
+    {
         this.uri = uri;
     }
 
-    public String getUsername() {
+    public String getUsername()
+    {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(String username)
+    {
         this.username = username;
     }
 
-    public String getPassword() {
+    public String getPassword()
+    {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(String password)
+    {
         this.password = password;
     }
 
-    public String getWillTopic() {
+    public String getWillTopic()
+    {
         return willTopic;
     }
 
-    public void setWillTopic(String willTopic) {
+    public void setWillTopic(String willTopic)
+    {
         this.willTopic = willTopic;
     }
 
-    public String getWillMsg() {
+    public String getWillMsg()
+    {
         return willMsg;
     }
 
-    public void setWillMsg(String willMsg) {
+    public void setWillMsg(String willMsg)
+    {
         this.willMsg = willMsg;
     }
 
-    public int getConnectionTimeout() {
+    public int getConnectionTimeout()
+    {
         return connectionTimeout;
     }
 
-    public void setConnectionTimeout(int connectionTimeout) {
+    public void setConnectionTimeout(int connectionTimeout)
+    {
         this.connectionTimeout = connectionTimeout;
     }
 
-    public int getKeepAliveInterval() {
+    public int getKeepAliveInterval()
+    {
         return keepAliveInterval;
     }
 
-    public void setKeepAliveInterval(int keepAliveInterval) {
+    public void setKeepAliveInterval(int keepAliveInterval)
+    {
         this.keepAliveInterval = keepAliveInterval;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "MqttConfig{" + "clientId='" + clientId + '\'' + ", uri='" + uri + '\'' + ", username='" + username
-                + '\'' + ", password='" + password + '\'' + ", willTopic='" + willTopic + '\'' + ", willMsg='" + willMsg
-                + '\'' + ", connectionTimeout=" + connectionTimeout + ", keepAliveInterval=" + keepAliveInterval + '}';
+            + '\'' + ", password='" + password + '\'' + ", willTopic='" + willTopic + '\'' + ", willMsg='" + willMsg
+            + '\'' + ", connectionTimeout=" + connectionTimeout + ", keepAliveInterval=" + keepAliveInterval + '}';
     }
 }

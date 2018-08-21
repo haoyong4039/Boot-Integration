@@ -5,7 +5,7 @@ import com.boot.integration.util.BaseMapper;
 
 import java.util.List;
 
-public interface UserMapper extends BaseMapper<User> {
-
+public interface UserMapper extends BaseMapper<User>
+{
     List<User> queryUserRole(Long userId);
 }

@@ -3,7 +3,8 @@ package com.boot.integration.constant;
 import java.util.List;
 import java.util.Map;
 
-public class ResponseDto {
+public class ResponseDto
+{
 
     private int retCode;
 

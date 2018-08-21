@@ -12,17 +12,22 @@
 //import java.util.Date;
 //
 //@Component
-//public class MessageCustomer {
+//public class MessageCustomer
+//{
 //
 //    private static final Logger log = LoggerFactory.getLogger(MessageCustomer.class);
 //
 //    @RabbitListener(queues = {RabbitConfig.COMMON_QUEUE})
-//    public void listenerDelayQueue(User user, Message message, Channel channel) {
+//    public void listenerDelayQueue(User user, Message message, Channel channel)
+//    {
 //        log.info("[消费时间] - [{}] - [{}]", new Date(), user.toString());
-//        try {
+//        try
+//        {
 //            // TODO 通知 MQ 消息已被成功消费,可以ACK了
 //            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
-//        } catch (IOException e) {
+//        }
+//        catch (IOException e)
+//        {
 //            // TODO 如果报错了,那么我们可以进行容错处理,比如转移当前消息进入其它队列
 //        }
 //    }

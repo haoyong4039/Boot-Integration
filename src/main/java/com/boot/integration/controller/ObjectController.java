@@ -30,7 +30,6 @@ public class ObjectController
     public static final ObjectMapper objectMapper = new ObjectMapper();
 
     /**
-     *
      * <pre>
      * <一句话功能简述>
      * 通过JSONObject直接获取属性值
@@ -43,24 +42,24 @@ public class ObjectController
      * @since [产品/模块版本]
      */
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @RequestMapping(value = "/json",method = RequestMethod.POST)
-    public void readValue(@RequestBody JSONObject jsonObject){
+    @RequestMapping(value = "/json", method = RequestMethod.POST)
+    public void readValue(@RequestBody JSONObject jsonObject)
+    {
 
-        log.info("[username] - {}......[password] - {}",jsonObject.getString("username"),jsonObject.getString("password"));
+        log.info("[username] - {}......[password] - {}", jsonObject.getString("username"), jsonObject.getString("password"));
 
-        try {
-
-            User user = objectMapper.readValue(String.valueOf(jsonObject),User.class);
-            log.info("[user] - {}",user);
-
-        } catch (IOException e) {
-
+        try
+        {
+            User user = objectMapper.readValue(String.valueOf(jsonObject), User.class);
+            log.info("[user] - {}", user);
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
     }
 
     /**
-     *
      * <pre>
      * <一句话功能简述>
      * object对象转byte，byte转object
@@ -73,8 +72,9 @@ public class ObjectController
      * @since [产品/模块版本]
      */
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @RequestMapping(value = "/convert",method = RequestMethod.GET)
-    public void convert(){
+    @RequestMapping(value = "/convert", method = RequestMethod.GET)
+    public void convert()
+    {
 
         try
         {
@@ -83,20 +83,19 @@ public class ObjectController
             user.setPassword("admin");
 
             byte[] objectToBytes = objectMapper.writeValueAsBytes(user);
-            log.info("objectToBytes: {}",objectToBytes);
+            log.info("objectToBytes: {}", objectToBytes);
 
-            User bytesToObject = objectMapper.readValue(objectToBytes,User.class);
-            log.info("bytesToObject: {}",bytesToObject);
-
+            User bytesToObject = objectMapper.readValue(objectToBytes, User.class);
+            log.info("bytesToObject: {}", bytesToObject);
 
             List<User> userList = new ArrayList<>();
             userList.add(user);
 
             byte[] objectToBytes2 = objectMapper.writeValueAsBytes(userList);
-            log.info("objectToBytes2: {}",objectToBytes2);
+            log.info("objectToBytes2: {}", objectToBytes2);
 
-            List<User> bytesToObjectList = objectMapper.readValue(objectToBytes2,List(User.class));
-            log.info("bytesToObjectList: {}",bytesToObjectList);
+            List<User> bytesToObjectList = objectMapper.readValue(objectToBytes2, List(User.class));
+            log.info("bytesToObjectList: {}", bytesToObjectList);
 
         }
         catch (JsonProcessingException e)
@@ -110,7 +109,6 @@ public class ObjectController
     }
 
     /**
-     *
      * <pre>
      * <一句话功能简述>
      * 反射
@@ -123,9 +121,11 @@ public class ObjectController
      * @since [产品/模块版本]
      */
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @RequestMapping(value = "/reflect",method = RequestMethod.GET)
-    public void reflect(){
-        try {
+    @RequestMapping(value = "/reflect", method = RequestMethod.GET)
+    public void reflect()
+    {
+        try
+        {
             //获取class对象
             Class<?> clazz = new User().getClass();
 
@@ -133,9 +133,10 @@ public class ObjectController
             Field[] fields = clazz.getDeclaredFields();
             //遍历所有的属性
             System.out.println("************************Class属性**************************");
-            for (Field field:fields){
+            for (Field field : fields)
+            {
                 System.out.println(field);
-                System.out.println("修饰符："+Modifier.toString(field.getModifiers()));
+                System.out.println("修饰符：" + Modifier.toString(field.getModifiers()));
                 System.out.println("类型：" + field.getType());
                 System.out.println("属性名：" + field.getName());
                 System.out.println();
@@ -146,7 +147,8 @@ public class ObjectController
             Method[] methods = clazz.getDeclaredMethods();
             //遍历方法
             System.out.println("************************Class方法**************************");
-            for (Method method:methods){
+            for (Method method : methods)
+            {
                 // 打印方法签名
                 System.out.println(method);
                 System.out.println("修饰符：" + Modifier.toString(method.getModifiers()));
@@ -154,16 +156,16 @@ public class ObjectController
                 System.out.println("返回类型：" + method.getReturnType());
                 // 获取方法的参数对象
                 Class<?>[] clazzes = method.getParameterTypes();
-                for (Class<?> class1 : clazzes) {
+                for (Class<?> class1 : clazzes)
+                {
                     System.out.println("参数类型：" + class1);
                 }
                 System.out.println();
             }
             System.out.println("**********************************************************");
 
-
             // 通过Class对象创建实例
-            User user = (User) clazz.newInstance();
+            User user = (User)clazz.newInstance();
             // username(Field)对象，以便下边重新设置它的值
             Field username = clazz.getDeclaredField("username");
             //私有属性授权
@@ -176,23 +178,24 @@ public class ObjectController
             setPassword.invoke(user, "123456");
 
             System.out.println(user);
-        }catch (Exception e){
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
 
     /**
-     *
      * <pre>
      * <一句话功能简述>
      * 私有方法,获取泛型的TypeReference
      * <功能详细描述>
      * </pre>
      *
-     * @author 姓名 工号
-     * @version [版本号, 2018年6月11日]
      * @param clazz
      * @return
+     * @author 姓名 工号
+     * @version [版本号, 2018年6月11日]
      * @see [类、类#方法、类#成员]
      */
     private static <T> JavaType List(Class<?> clazz)

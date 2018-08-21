@@ -9,7 +9,8 @@ import java.util.List;
 /**
  * Created by haoyong on 2018/1/4.
  */
-public interface UserService {
+public interface UserService
+{
 
     List<User> queryUserRoles(Long userId) throws CustomException;
 }

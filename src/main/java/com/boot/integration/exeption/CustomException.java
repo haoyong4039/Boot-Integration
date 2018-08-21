@@ -1,23 +1,28 @@
 package com.boot.integration.exeption;
 
-public class CustomException extends Exception {
+public class CustomException extends Exception
+{
 
     private int value;
 
-    public CustomException() {
+    public CustomException()
+    {
         super();
     }
 
-    public CustomException(int value) {
+    public CustomException(int value)
+    {
         super(String.valueOf(value));
         this.value = value;
     }
 
-    public int getValue() {
+    public int getValue()
+    {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(int value)
+    {
         this.value = value;
     }
 

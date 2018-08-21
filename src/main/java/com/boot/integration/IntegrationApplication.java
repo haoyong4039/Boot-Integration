@@ -14,9 +14,11 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 @EnableAutoConfiguration
 @MapperScan(basePackages = "com.boot.integration.mapper")
 @SpringBootApplication
-public class IntegrationApplication {
+public class IntegrationApplication
+{
 
-	public static void main(String[] args) {
-		SpringApplication.run(IntegrationApplication.class, args);
-	}
+    public static void main(String[] args)
+    {
+        SpringApplication.run(IntegrationApplication.class, args);
+    }
 }

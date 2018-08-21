@@ -8,7 +8,8 @@ import java.util.Date;
 import java.util.List;
 
 @Table(name = "design_user")
-public class User implements Serializable{
+public class User implements Serializable
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,7 +20,7 @@ public class User implements Serializable{
 
     private Long version;
 
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "creation_date")
     private Date creationDate;
 
@@ -29,90 +30,97 @@ public class User implements Serializable{
     /**
      * @return id
      */
-    public Long getId() {
+    public Long getId()
+    {
         return id;
     }
 
     /**
      * @param id
      */
-    public void setId(Long id) {
+    public void setId(Long id)
+    {
         this.id = id;
     }
 
     /**
      * @return username
      */
-    public String getUsername() {
+    public String getUsername()
+    {
         return username;
     }
 
     /**
      * @param username
      */
-    public void setUsername(String username) {
+    public void setUsername(String username)
+    {
         this.username = username;
     }
 
     /**
      * @return password
      */
-    public String getPassword() {
+    public String getPassword()
+    {
         return password;
     }
 
     /**
      * @param password
      */
-    public void setPassword(String password) {
+    public void setPassword(String password)
+    {
         this.password = password;
     }
 
     /**
      * @return version
      */
-    public Long getVersion() {
+    public Long getVersion()
+    {
         return version;
     }
 
     /**
      * @param version
      */
-    public void setVersion(Long version) {
+    public void setVersion(Long version)
+    {
         this.version = version;
     }
 
     /**
      * @return creation_date
      */
-    public Date getCreationDate() {
+    public Date getCreationDate()
+    {
         return creationDate;
     }
 
     /**
      * @param creationDate
      */
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(Date creationDate)
+    {
         this.creationDate = creationDate;
     }
 
-    public List<Role> getRoleList() {
+    public List<Role> getRoleList()
+    {
         return roleList;
     }
 
-    public void setRoleList(List<Role> roleList) {
+    public void setRoleList(List<Role> roleList)
+    {
         this.roleList = roleList;
     }
 
     @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", version=" + version +
-                ", creationDate=" + creationDate +
-                ", roleList=" + roleList +
-                '}';
+    public String toString()
+    {
+        return "User{" + "id=" + id + ", username='" + username + '\'' + ", password='" + password + '\'' + ", version="
+            + version + ", creationDate=" + creationDate + ", roleList=" + roleList + '}';
     }
 }

@@ -15,28 +15,31 @@ import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecur
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter
+{
 
     @Autowired
     private MyUserDetailsService myUserDetailsService;
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-            .userDetailsService(myUserDetailsService)
-            .passwordEncoder(new Md5PasswordEncoder());
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception
+    {
+        auth.userDetailsService(myUserDetailsService).passwordEncoder(new Md5PasswordEncoder());
     }
 
     @Override
     @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
+    public AuthenticationManager authenticationManagerBean() throws Exception
+    {
         return super.authenticationManagerBean();
     }
 
     @EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true)
-    public static class GlobalSecurityConfiguration extends GlobalMethodSecurityConfiguration {
+    public static class GlobalSecurityConfiguration extends GlobalMethodSecurityConfiguration
+    {
         @Override
-        protected MethodSecurityExpressionHandler createExpressionHandler() {
+        protected MethodSecurityExpressionHandler createExpressionHandler()
+        {
             return new OAuth2MethodSecurityExpressionHandler();
         }
     }

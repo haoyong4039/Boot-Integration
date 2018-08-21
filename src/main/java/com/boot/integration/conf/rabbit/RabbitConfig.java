@@ -14,19 +14,25 @@
 // * @since 2018/4/11 0011
 // */
 //@Configuration
-//public class RabbitConfig {
+//public class RabbitConfig
+//{
 //
 //    public static final String DELAY_QUEUE = "delay.queue";
+//
 //    public static final String DELAY_EXCHANGE = "delay.exchange";
-//    public static final String  DELAY_ROUTING_KEY= "delay";
+//
+//    public static final String DELAY_ROUTING_KEY = "delay";
 //
 //    public static final String COMMON_QUEUE = "common.queue";
+//
 //    public static final String COMMON_EXCHANGE = "common.exchange";
+//
 //    public static final String COMMON_ROUTING_KEY = "common";
 //
-///*=====================================Direct交换机=======================================*/
+//    /*=====================================Direct交换机=======================================*/
 //    @Bean
-//    public Queue delayQueue() {
+//    public Queue delayQueue()
+//    {
 //        Map<String, Object> params = new HashMap<>();
 //        // x-dead-letter-exchange 声明了队列里的死信转发到的DLX名称，
 //        params.put("x-dead-letter-exchange", COMMON_EXCHANGE);
@@ -36,28 +42,33 @@
 //    }
 //
 //    @Bean
-//    public DirectExchange delayExchange() {
+//    public DirectExchange delayExchange()
+//    {
 //        return new DirectExchange(DELAY_EXCHANGE);
 //    }
 //
 //    @Bean
-//    public Binding dlxBinding() {
+//    public Binding dlxBinding()
+//    {
 //        return BindingBuilder.bind(delayQueue()).to(delayExchange()).with(DELAY_ROUTING_KEY);
 //    }
 //
-///*=====================================Topic交换机=======================================*/
+//    /*=====================================Topic交换机=======================================*/
 //    @Bean
-//    public Queue commonQueue() {
+//    public Queue commonQueue()
+//    {
 //        return new Queue(COMMON_QUEUE, true);
 //    }
 //
 //    @Bean
-//    public TopicExchange commonExchange() {
+//    public TopicExchange commonExchange()
+//    {
 //        return new TopicExchange(COMMON_EXCHANGE);
 //    }
 //
 //    @Bean
-//    public Binding commonBinding() {
+//    public Binding commonBinding()
+//    {
 //        return BindingBuilder.bind(commonQueue()).to(commonExchange()).with(COMMON_ROUTING_KEY);
 //    }
 //

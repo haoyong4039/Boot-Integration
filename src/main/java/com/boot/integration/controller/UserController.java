@@ -24,7 +24,8 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserController
+{
 
     private static final Logger log = LoggerFactory.getLogger(RedisUtil.class);
 
@@ -49,21 +50,21 @@ public class UserController {
 
         try
         {
-            List<User> userList = userService.queryUserRoles(userId) ;
+            List<User> userList = userService.queryUserRoles(userId);
 
             responseDto.setRetCode(retCode);
             responseDto.setRetData(userList);
         }
         catch (CustomException e)
         {
-            log.error(e.getMessage(),e);
+            log.error(e.getMessage(), e);
 
             retCode = e.getValue();
             responseDto.setRetCode(retCode);
         }
         catch (Exception e)
         {
-            log.error(e.getMessage(),e);
+            log.error(e.getMessage(), e);
 
             retCode = CustomCode.ERROR_SYSTEM.getValue();
             responseDto.setRetCode(retCode);

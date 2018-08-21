@@ -10,14 +10,16 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author haoyong
  * @since 2018/7/24
  */
-public final class WebSocketUtils {
+public final class WebSocketUtils
+{
 
     /**
      * 模拟存储 websocket session 使用
      */
     public static final Map<String, Session> LIVING_SESSIONS_CACHE = new ConcurrentHashMap<>();
 
-    public static void sendMessageAll(String message) {
+    public static void sendMessageAll(String message)
+    {
         LIVING_SESSIONS_CACHE.forEach((sessionId, session) -> sendMessage(session, message));
     }
 
@@ -27,18 +29,23 @@ public final class WebSocketUtils {
      * @param session 用户 session
      * @param message 发送内容
      */
-    public static void sendMessage(Session session, String message) {
-
-        if (session == null) {
+    public static void sendMessage(Session session, String message)
+    {
+        if (session == null)
+        {
             return;
         }
         final RemoteEndpoint.Basic basic = session.getBasicRemote();
-        if (basic == null) {
+        if (basic == null)
+        {
             return;
         }
-        try {
+        try
+        {
             basic.sendText(message);
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
     }

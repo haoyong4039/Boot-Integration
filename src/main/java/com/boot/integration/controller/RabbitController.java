@@ -10,14 +10,16 @@
 //
 //@RestController
 //@RequestMapping("/rabbit")
-//public class RabbitController {
+//public class RabbitController
+//{
 //
 //    @Autowired
 //    private MessageProducer messageProducer;
 //
 //    @PreAuthorize("hasAnyRole('ADMIN')")
-//    @RequestMapping(value = "/test",method = RequestMethod.GET)
-//    public void testRabbit(){
+//    @RequestMapping(value = "/test", method = RequestMethod.GET)
+//    public void testRabbit()
+//    {
 //        User user = new User();
 //        user.setUsername("author");
 //        messageProducer.sendMessage(user);

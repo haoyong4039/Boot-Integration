@@ -19,75 +19,81 @@ import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import javax.sql.DataSource;
 
 @Configuration
-public class OAuth2Configuration {
+public class OAuth2Configuration
+{
 
     @Configuration
     @EnableResourceServer
-    protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
+    protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
+    {
 
         @Autowired
         private MyAuthenticationEntryPoint myAuthenticationEntryPoint;
 
         @Override
-        public void configure(HttpSecurity http) throws Exception {
-            http
-                    .exceptionHandling()
-                    .authenticationEntryPoint(myAuthenticationEntryPoint)
-                    .and()
-                    .authorizeRequests()
-                    .antMatchers("/reflect/**").permitAll()
-                    .anyRequest().authenticated();
+        public void configure(HttpSecurity http) throws Exception
+        {
+            http.exceptionHandling()
+                .authenticationEntryPoint(myAuthenticationEntryPoint)
+                .and()
+                .authorizeRequests()
+                .antMatchers("/reflect/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated();
         }
     }
 
     @Configuration
     @EnableAuthorizationServer
-    protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
+    protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter
+    {
 
         @Autowired
         private DataSource dataSource;
 
         @Bean
-        public TokenStore tokenStore() {
+        public TokenStore tokenStore()
+        {
             return new JdbcTokenStore(dataSource);
         }
 
-//        @Autowired
-//        private RedisConnectionFactory redisConnectionFactory;
-//
-//        @Bean
-//        public TokenStore tokenStore() {
-//            return new RedisTokenStore(redisConnectionFactory);
-//        }
+        //        @Autowired
+        //        private RedisConnectionFactory redisConnectionFactory;
+        //
+        //        @Bean
+        //        public TokenStore tokenStore() {
+        //            return new RedisTokenStore(redisConnectionFactory);
+        //        }
 
         @Autowired
         @Qualifier("authenticationManagerBean")
         private AuthenticationManager authenticationManager;
 
         @Override
-        public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-            endpoints
-                    .tokenStore(tokenStore())
-                    .authenticationManager(authenticationManager);
+        public void configure(AuthorizationServerEndpointsConfigurer endpoints)
+        {
+            endpoints.tokenStore(tokenStore()).authenticationManager(authenticationManager);
         }
 
         @Override
-        public void configure(AuthorizationServerSecurityConfigurer oauthServer) {
+        public void configure(AuthorizationServerSecurityConfigurer oauthServer)
+        {
             //允许表单认证
             oauthServer.allowFormAuthenticationForClients();
         }
 
         @Override
-        public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-            clients
-                    .inMemory()
-                    .withClient("client")
-                    .scopes("read", "write")
-                    .authorities("ROLE_ADMIN", "ROLE_USER")
-                    .authorizedGrantTypes("password", "refresh_token")
-                    .secret("secret")
-                    .accessTokenValiditySeconds(60 * 60)
-                    .refreshTokenValiditySeconds(60 * 60 * 24);
+        public void configure(ClientDetailsServiceConfigurer clients) throws Exception
+        {
+            clients.inMemory()
+                .withClient("client")
+                .scopes("read", "write")
+                .authorities("ROLE_ADMIN", "ROLE_USER")
+                .authorizedGrantTypes("password", "refresh_token")
+                .secret("secret")
+                .accessTokenValiditySeconds(60 * 60)
+                .refreshTokenValiditySeconds(60 * 60 * 24);
         }
     }
 
