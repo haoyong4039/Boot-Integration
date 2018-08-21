@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,11 +40,9 @@ public class ObjectController
      * @see [相关类/方法]
      * @since [产品/模块版本]
      */
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/json", method = RequestMethod.POST)
     public void readValue(@RequestBody JSONObject jsonObject)
     {
-
         log.info("[username] - {}......[password] - {}", jsonObject.getString("username"), jsonObject.getString("password"));
 
         try
@@ -71,7 +68,6 @@ public class ObjectController
      * @see [相关类/方法]
      * @since [产品/模块版本]
      */
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/convert", method = RequestMethod.GET)
     public void convert()
     {
@@ -120,7 +116,6 @@ public class ObjectController
      * @see [相关类/方法]
      * @since [产品/模块版本]
      */
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/reflect", method = RequestMethod.GET)
     public void reflect()
     {

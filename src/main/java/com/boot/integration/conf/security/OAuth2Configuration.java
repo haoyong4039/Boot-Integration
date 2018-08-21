@@ -37,7 +37,7 @@ public class OAuth2Configuration
                 .authenticationEntryPoint(myAuthenticationEntryPoint)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/static/**","/chat-room/**")
+                .antMatchers("/static/**","/chat-room/**","/object/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated();
