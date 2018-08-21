@@ -1,7 +1,7 @@
 package com.boot.integration.controller;
 
 import com.boot.integration.conf.redis.RedisUtil;
-import com.boot.integration.constant.ResponseDto;
+import com.boot.integration.dto.ResponseDto;
 import com.boot.integration.exeption.CustomCode;
 import com.boot.integration.exeption.CustomException;
 import com.boot.integration.model.User;
@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**

@@ -1,7 +1,4 @@
-package com.boot.integration.constant;
-
-import java.util.List;
-import java.util.Map;
+package com.boot.integration.dto;
 
 public class ResponseDto
 {

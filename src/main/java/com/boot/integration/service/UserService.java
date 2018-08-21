@@ -1,6 +1,5 @@
 package com.boot.integration.service;
 
-import com.boot.integration.constant.ResponseDto;
 import com.boot.integration.exeption.CustomException;
 import com.boot.integration.model.User;
 
