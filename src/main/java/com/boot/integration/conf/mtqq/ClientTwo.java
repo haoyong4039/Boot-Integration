@@ -11,7 +11,7 @@ public class ClientTwo {
         mqttConfig.setUsername("admin");
         mqttConfig.setPassword("password");
 
-        String[] topic = {"theme"};
+        String[] topic = {"two"};
 
         MyMqttClient myMqttClient = new MyMqttClient(mqttConfig, topic);
 
@@ -20,7 +20,7 @@ public class ClientTwo {
         Scanner in = new Scanner(System.in);
 
         while (true) {
-            myMqttClient.sendMsg("theme", in.nextLine());
+            myMqttClient.sendMsg("one", in.nextLine());
         }
     }
 }

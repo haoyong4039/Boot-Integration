@@ -20,14 +20,18 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by haoyong on 2018/1/4.
  */
-@Service @Transactional public class UserServiceImpl implements UserService
+@Service
+@Transactional
+public class UserServiceImpl implements UserService
 {
 
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
-    @Autowired private UserMapper userMapper;
+    @Autowired
+    private UserMapper userMapper;
 
-    @Autowired private RedisUtil redisUtil;
+    @Autowired
+    private RedisUtil redisUtil;
 
     public List<User> queryUserRoles(Long userId)
         throws CustomException
