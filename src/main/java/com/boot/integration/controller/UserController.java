@@ -1,6 +1,8 @@
 package com.boot.integration.controller;
 
 import com.boot.integration.constant.ResponseDto;
+import com.boot.integration.exeption.CustomCode;
+import com.boot.integration.exeption.CustomException;
 import com.boot.integration.model.User;
 import com.boot.integration.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by haoyong on 2018/1/4.
@@ -28,9 +34,28 @@ public class UserController {
      */
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @RequestMapping(value = "/query/role",method = RequestMethod.GET)
-    public ResponseDto<User> queryUserRole(){
-        return userService.queryUserRoles();
-    }
+    @RequestMapping(value = "/query/role", method = RequestMethod.GET)
+    public ResponseDto queryUserRole(HttpServletRequest request, HttpServletResponse response)
+    {
+        ResponseDto responseDto = new ResponseDto();
 
+        int retCode = CustomCode.SUCCESS.getValue();
+
+        try
+        {
+            List<User> userList = userService.queryUserRoles() ;
+
+            responseDto.setRetCode(retCode);
+            responseDto.setRetData(userList);
+        }
+        catch (CustomException e)
+        {
+            retCode = e.getValue();
+            responseDto.setRetCode(retCode);
+
+            e.printStackTrace();
+        }
+
+        return responseDto;
+    }
 }

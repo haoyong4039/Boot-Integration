@@ -1,73 +1,41 @@
 package com.boot.integration.constant;
 
 import java.util.List;
+import java.util.Map;
 
-public class ResponseDto<T> {
+public class ResponseDto {
 
-    private String resResult = "SUCCESS";
+    private int retCode;
 
-    private String resCode = "10000";
+    private Object retData;
 
-    private String resMsg = "成功";
-
-    private T data;
-
-    private List<T> dataList;
-
-    public ResponseDto() {
+    public ResponseDto()
+    {
     }
 
-    public ResponseDto(ResponseEnum responseEnum, T data,List<T> dataList) {
-        this.resResult = responseEnum.getResResult();
-        this.resCode = responseEnum.getResCode();
-        this.resMsg = responseEnum.getResMsg();
-        this.data = data;
-        this.dataList = dataList;
+    public ResponseDto(int retCode, Object retData)
+    {
+        this.retCode = retCode;
+        this.retData = retData;
     }
 
-    public ResponseDto(ResponseEnum responseEnum) {
-        this.resResult = responseEnum.getResResult();
-        this.resCode = responseEnum.getResCode();
-        this.resMsg = responseEnum.getResMsg();
+    public int getRetCode()
+    {
+        return retCode;
     }
 
-    public String getResResult() {
-        return resResult;
+    public void setRetCode(int retCode)
+    {
+        this.retCode = retCode;
     }
 
-    public void setResResult(String resResult) {
-        this.resResult = resResult;
+    public Object getRetData()
+    {
+        return retData;
     }
 
-    public String getResCode() {
-        return resCode;
-    }
-
-    public void setResCode(String resCode) {
-        this.resCode = resCode;
-    }
-
-    public String getResMsg() {
-        return resMsg;
-    }
-
-    public void setResMsg(String resMsg) {
-        this.resMsg = resMsg;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
-
-    public List<T> getDataList() {
-        return dataList;
-    }
-
-    public void setDataList(List<T> dataList) {
-        this.dataList = dataList;
+    public void setRetData(Object retData)
+    {
+        this.retData = retData;
     }
 }
