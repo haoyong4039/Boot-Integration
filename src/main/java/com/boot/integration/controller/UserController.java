@@ -7,6 +7,7 @@ import com.boot.integration.model.User;
 import com.boot.integration.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,8 +35,8 @@ public class UserController {
      */
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @RequestMapping(value = "/query/role", method = RequestMethod.GET)
-    public ResponseDto queryUserRole(HttpServletRequest request, HttpServletResponse response)
+    @RequestMapping(value = "/query/role/{userId}", method = RequestMethod.GET)
+    public ResponseDto queryUserRole(@PathVariable Long userId)
     {
         ResponseDto responseDto = new ResponseDto();
 
@@ -43,7 +44,7 @@ public class UserController {
 
         try
         {
-            List<User> userList = userService.queryUserRoles() ;
+            List<User> userList = userService.queryUserRoles(userId) ;
 
             responseDto.setRetCode(retCode);
             responseDto.setRetData(userList);
@@ -51,6 +52,12 @@ public class UserController {
         catch (CustomException e)
         {
             retCode = e.getValue();
+            responseDto.setRetCode(retCode);
+
+            e.printStackTrace();
+        }catch (Exception e)
+        {
+            retCode = CustomCode.ERROR_SYSTEM.getValue();
             responseDto.setRetCode(retCode);
 
             e.printStackTrace();

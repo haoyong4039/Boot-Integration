@@ -11,5 +11,5 @@ import java.util.List;
  */
 public interface UserService {
 
-    List<User> queryUserRoles() throws CustomException;
+    List<User> queryUserRoles(Long userId) throws CustomException;
 }

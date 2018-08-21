@@ -20,51 +20,50 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by haoyong on 2018/1/4.
  */
-@Service
-@Transactional
-public class UserServiceImpl implements UserService
+@Service @Transactional public class UserServiceImpl implements UserService
 {
 
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
-    @Autowired
-    private UserMapper userMapper;
+    @Autowired private UserMapper userMapper;
 
-    @Autowired
-    private RedisUtil redisUtil;
+    @Autowired private RedisUtil redisUtil;
 
-    public List<User> queryUserRoles() throws CustomException
+    public List<User> queryUserRoles(Long userId)
+        throws CustomException
     {
 
-        String key = "userRoles";
+        String key = "UserRoles-"+userId;
 
         boolean iKey = redisUtil.hasKey(key);
 
         List<User> userList = new ArrayList<>();
 
-        if (iKey)
+        try
         {
-            userList = (List<User>)redisUtil.getValue(key);
+            if (iKey)
+            {
+                userList = (List<User>)redisUtil.getValue(key);
 
-            log.info("[queryUserRoles from] - [redis] - data:{}",userList);
+                log.info("[queryUserRoles from] - [redis] - data:{}", userList);
+            }
+            else
+            {
+                userList = userMapper.queryUserRole(userId);
+
+                log.info("[queryUserRoles from] - [mysql] - data:{}", userList);
+
+                if (userList.size() == 0){
+                    throw new CustomException(CustomCode.ERROR_USER_NOT_EXIST.getValue());
+                }
+                redisUtil.setValue(key, userList, 60, TimeUnit.SECONDS);
+            }
         }
-        else
+        catch (Exception e)
         {
-            try
-            {
-                userList = userMapper.queryUserRole();
-
-                log.info("[queryUserRoles from] - [mysql] - data:{}",userList);
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-
-                throw new CustomException(CustomCode.ERROR_DB_EXECUTE.getValue());
-            }
-
-            redisUtil.setValue(key, userList, 60, TimeUnit.SECONDS);
+            throw e;
         }
+
         return userList;
     }
 }

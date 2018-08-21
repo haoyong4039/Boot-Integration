@@ -5,7 +5,7 @@ public enum CustomCode
 
     SUCCESS(0),
 
-    ERROR_DB_EXECUTE(10),
+    ERROR_SYSTEM(-1),
 
     ERROR_USER_NOT_EXIST(101);
 
