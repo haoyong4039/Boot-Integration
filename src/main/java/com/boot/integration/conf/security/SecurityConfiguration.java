@@ -15,6 +15,7 @@ import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecur
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 {
 
@@ -32,15 +33,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
     public AuthenticationManager authenticationManagerBean() throws Exception
     {
         return super.authenticationManagerBean();
-    }
-
-    @EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true)
-    public static class GlobalSecurityConfiguration extends GlobalMethodSecurityConfiguration
-    {
-        @Override
-        protected MethodSecurityExpressionHandler createExpressionHandler()
-        {
-            return new OAuth2MethodSecurityExpressionHandler();
-        }
     }
 }
