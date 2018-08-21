@@ -1,10 +1,13 @@
 package com.boot.integration.controller;
 
+import com.boot.integration.conf.redis.RedisUtil;
 import com.boot.integration.constant.ResponseDto;
 import com.boot.integration.exeption.CustomCode;
 import com.boot.integration.exeption.CustomException;
 import com.boot.integration.model.User;
 import com.boot.integration.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +25,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
+    private static final Logger log = LoggerFactory.getLogger(RedisUtil.class);
 
     @Autowired
     private UserService userService;
@@ -51,16 +56,17 @@ public class UserController {
         }
         catch (CustomException e)
         {
+            log.error(e.getMessage(),e);
+
             retCode = e.getValue();
             responseDto.setRetCode(retCode);
-
-            e.printStackTrace();
-        }catch (Exception e)
+        }
+        catch (Exception e)
         {
+            log.error(e.getMessage(),e);
+
             retCode = CustomCode.ERROR_SYSTEM.getValue();
             responseDto.setRetCode(retCode);
-
-            e.printStackTrace();
         }
 
         return responseDto;
