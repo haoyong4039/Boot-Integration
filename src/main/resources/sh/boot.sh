@@ -4,12 +4,12 @@
 APP_SERVER=`echo $(basename $0)|awk -F '.' '{print $1}'`
 
 #jar包存在地址 
-APP_DIR=/usr/local/haoy/boot/jar
+APP_DIR=/usr/local/boot/jar
 
 #日志输出地址 
-APP_LOG_DIR=/usr/local/haoy/boot/log
+APP_LOG_DIR=/usr/local/boot/log
 #日志文件名
-APP_LOG_NAME="boot-"$(date "+%Y-%m-%d")".log"
+APP_LOG_NAME="boot-"$(date "+%Y-%m-%d-%H:%M")".log"
 
 #初始化全局变量tradePortalPID,用于标识交易前置系统的PID,0表示未启动  
 tradePortalPID=0
