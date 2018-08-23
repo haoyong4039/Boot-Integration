@@ -14,6 +14,12 @@ APP_LOG_NAME="boot-"$(date "+%Y-%m-%d")".log"
 #初始化全局变量tradePortalPID,用于标识交易前置系统的PID,0表示未启动  
 tradePortalPID=0
 
+#查询日志目录，若不存在则创建  
+if [ ! -d "$APP_LOG_DIR" ]; then
+    echo "${APP_LOG_DIR}文件夹不存在，准备创建!"  
+    mkdir -p  "$APP_LOG_DIR"
+    echo "${APP_LOG_DIR}文件夹创建成功!"  
+fi
 
 #获取程序运行的PID
 getTradeProtalPID(){
@@ -34,7 +40,7 @@ start(){
         echo "================================================================================================================"  
     else  
 
-        #日志输出到指定文件  &这个是表示以>>守护进程运行 大概就是支持后台运行的意思  
+        #日志输出到指定文件
         java -jar $APP_DIR/integration-0.0.1.jar >>$APP_LOG_DIR/$APP_LOG_NAME &
 		
         getTradeProtalPID  
