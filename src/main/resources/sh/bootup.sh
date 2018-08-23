@@ -26,9 +26,9 @@ fi
 
 #获取程序运行的PID
 getPID(){
-    javaps=`netstat -anp|grep $APP_PORT|awk '{printf $7}'|cut -d/ -f1`
-    if [ -n "$javaps" ]; then
-        PID=$javaps
+    net_pid=`netstat -anp|grep $APP_PORT|awk '{printf $7}'|cut -d/ -f1`
+    if [ -n "$net_pid" ]; then
+        PID=$net_pid
     else
         PID=0
     fi
@@ -50,10 +50,10 @@ start(){
 		
         getPID  
         if [ $PID -ne 0 ]; then  
-            echo "Strat $APP_SERVER successfully (PID=$PID)"  
+            echo "Start $APP_SERVER successfully (PID=$PID)"
             echo "================================================================================================================"  
         else  
-            echo "Strat $APP_SERVER failed..."  
+            echo "Start $APP_SERVER failed..."
             echo "================================================================================================================"  
         fi  
     fi  
