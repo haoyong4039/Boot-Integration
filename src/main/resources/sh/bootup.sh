@@ -11,8 +11,11 @@ APP_LOG_DIR=/usr/local/boot/log
 #日志文件名
 APP_LOG_NAME="boot-"$(date "+%Y-%m-%d-%H:%M")".log"
 
-#初始化全局变量tradePortalPID,用于标识交易前置系统的PID,0表示未启动  
-tradePortalPID=0
+#程序端口
+APP_PORT=6060
+
+#初始化程序进程
+PID=0
 
 #查询日志目录，若不存在则创建  
 if [ ! -d "$APP_LOG_DIR" ]; then
@@ -22,30 +25,32 @@ if [ ! -d "$APP_LOG_DIR" ]; then
 fi
 
 #获取程序运行的PID
-getTradeProtalPID(){
-    javaps=`ps aux|grep java|grep $APP_SERVER|grep -v grep | awk '{print $2}'`
+getPID(){
+    javaps=`netstat -anp|grep $APP_PORT|awk '{printf $7}'|cut -d/ -f1`
     if [ -n "$javaps" ]; then
-        tradePortalPID=$javaps
+        PID=$javaps
     else
-        tradePortalPID=0
+        PID=0
     fi
+	
+	echo "getPID successfully:$PID"
 } 
 
 #启动程序
 start(){  
-    getTradeProtalPID  
+    getPID  
     echo "================================================================================================================"  
-    if [ $tradePortalPID -ne 0 ]; then  
-        echo "$APP_SERVER already started(PID=$tradePortalPID)"  
+    if [ $PID -ne 0 ]; then  
+        echo "$APP_SERVER already started(PID=$PID)"  
         echo "================================================================================================================"  
     else  
 
         #日志输出到指定文件
         java -jar $APP_DIR/integration-0.0.1.jar >>$APP_LOG_DIR/$APP_LOG_NAME &
 		
-        getTradeProtalPID  
-        if [ $tradePortalPID -ne 0 ]; then  
-            echo "Strat $APP_SERVER successfully (PID=$tradePortalPID)"  
+        getPID  
+        if [ $PID -ne 0 ]; then  
+            echo "Strat $APP_SERVER successfully (PID=$PID)"  
             echo "================================================================================================================"  
         else  
             echo "Strat $APP_SERVER failed..."  
@@ -56,20 +61,20 @@ start(){
 
 #终止程序
 stop(){
-    getTradeProtalPID  
+    getPID  
     echo "================================================================================================================"  
-    if [ $tradePortalPID -ne 0 ]; then  
-        echo -n "Stop $APP_SERVER(PID=$tradePortalPID)..."  
-        kill -9 $tradePortalPID  
+    if [ $PID -ne 0 ]; then  
+        echo -n "Stop $APP_SERVER(PID=$PID)..."  
+        kill -9 $PID  
         if [ $? -eq 0 ]; then  
-            echo "Stop $APP_SERVER successfully (PID=$tradePortalPID)"  
+            echo "Stop $APP_SERVER successfully (PID=$PID)"  
             echo "================================================================================================================"  
         else  
             echo "Stop $APP_SERVER failed..."  
             echo "================================================================================================================"  
         fi  
-        getTradeProtalPID  
-        if [ $tradePortalPID -ne 0 ]; then  
+        getPID  
+        if [ $PID -ne 0 ]; then  
             shutdown  
         fi  
     else  
@@ -80,10 +85,10 @@ stop(){
 
 #(函数)检查程序运行状态 
 status(){  
-    getTradeProtalPID  
+    getPID  
     echo "================================================================================================================"  
-    if [ $tradePortalPID -ne 0 ]; then  
-        echo "$APP_SERVER is running (PID=$tradePortalPID)"  
+    if [ $PID -ne 0 ]; then  
+        echo "$APP_SERVER is running (PID=$PID)"  
         echo "================================================================================================================"  
     else  
         echo "$APP_SERVER is not running"  
@@ -112,5 +117,3 @@ case "$1" in
 esac
 #正常运行程序并退出程序  
 exit 0
-
-
