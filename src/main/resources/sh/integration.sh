@@ -45,7 +45,7 @@ start(){
         echo "================================================================================================================"  
     else  
 
-        #运行程序并重新命名程序名，日志输出到指定文件
+        #运行程序并重新命名程序名，按时间分割日志输出到指定文件
         exec -a $APP_SERVER java -jar $APP_DIR/integration-0.0.1.jar | $APP_LOG_CUT $APP_LOG_DIR/$APP_SERVER.log.%Y-%m-%d-%H:%M  >> /dev/null 2>&1 &
 
         getPID  
