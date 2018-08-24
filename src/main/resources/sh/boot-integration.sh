@@ -6,10 +6,10 @@ APP_SERVER=`echo $(basename $0)|awk -F '.' '{print $1}'`
 #jar包存在地址 
 APP_DIR=/usr/local/boot/jar
 
+#日志分割工具安装目录（ yum install cronolog安装，which cronolog查看安装目录）
+APP_LOG_CUT="/usr/sbin/cronolog"
 #日志输出地址 
 APP_LOG_DIR=/usr/local/boot/log
-#日志文件名
-APP_LOG_NAME="boot-"$(date "+%Y-%m-%d-%H:%M")".log"
 
 #程序端口
 APP_PORT=6060
@@ -45,8 +45,8 @@ start(){
         echo "================================================================================================================"  
     else  
 
-        #运行程序并重新命名程序名，日志输出到指定文件（>>追加，>覆盖）
-        exec -a $APP_SERVER java -jar $APP_DIR/integration-0.0.1.jar >>$APP_LOG_DIR/$APP_LOG_NAME &
+        #运行程序并重新命名程序名，日志输出到指定文件
+        exec -a $APP_SERVER java -jar $APP_DIR/integration-0.0.1.jar | $APP_LOG_CUT $APP_LOG_DIR/$APP_SERVER.log.%Y-%m-%d-%H:%M  >> /dev/null 2>&1 &
 
         getPID  
         if [ $PID -ne 0 ]; then  
@@ -117,4 +117,5 @@ case "$1" in
 esac
 #正常运行程序并退出程序  
 exit 0
+
 
