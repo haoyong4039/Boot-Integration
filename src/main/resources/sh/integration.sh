@@ -27,10 +27,10 @@ fi
 #获取程序运行的PID
 getPID(){
     #通过程序名获取PID（shell中会查出子程序PID），再通过程序所在位置提取PID
-    net_pid=`ps aux | grep $APP_DIR | grep $APP_SERVER | grep -v grep | awk '{print $2}'`
+    pidResult=`ps aux | grep $APP_DIR | grep $APP_SERVER | grep -v grep | awk '{print $2}'`
     
-    if [ -n "$net_pid" ]; then
-        PID=$net_pid
+    if [ -n "$pidResult" ]; then
+        PID=$pidResult
     else
         PID=0
     fi
