@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#获取程序名称
+#获取程序名称(尽量使程序名唯一)
 APP_SERVER=`echo $(basename $0)|awk -F '.' '{print $1}'`
 
 #jar包存在地址 
@@ -32,9 +32,7 @@ getPID(){
     else
         PID=0
     fi
-	
-	echo "getPID successfully:$PID"
-} 
+}
 
 #启动程序
 start(){  
@@ -46,8 +44,8 @@ start(){
     else  
 
         #日志输出到指定文件
-        java -jar $APP_DIR/integration-0.0.1.jar >>$APP_LOG_DIR/$APP_LOG_NAME &
-		
+        exec -a $APP_SERVER java -jar $APP_DIR/integration-0.0.1.jar >>$APP_LOG_DIR/$APP_LOG_NAME &
+
         getPID  
         if [ $PID -ne 0 ]; then  
             echo "Start $APP_SERVER successfully (PID=$PID)"
