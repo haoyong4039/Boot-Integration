@@ -45,12 +45,15 @@ start(){
         echo "================================================================================================================"  
     else  
 
+        #获取目录下的文件并筛选最新文件，grep jar筛选关键字jar
+		filename=`ls -lt $APP_DIR | grep jar | head -n 1 |awk '{print $9}'`
+
         #运行程序并重新命名程序名，按时间分割日志输出到指定文件
-        exec -a $APP_SERVER java -jar $APP_DIR/integration-0.0.1.jar | $APP_LOG_CUT $APP_LOG_DIR/$APP_SERVER.log.%Y-%m-%d-%H:%M  >> /dev/null 2>&1 &
+        exec -a $APP_SERVER java -jar $APP_DIR/$filename | $APP_LOG_CUT $APP_LOG_DIR/$APP_SERVER.log.%Y-%m-%d-%H:%M  >> /dev/null 2>&1 &
 
         getPID  
         if [ $PID -ne 0 ]; then  
-            echo "Start $APP_SERVER successfully (PID=$PID)"
+            echo "Start $APP_SERVER successfully (PID=$PID),execute jar:$filename"
             echo "================================================================================================================"  
         else  
             echo "Start $APP_SERVER failed..."
