@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 #获取程序名称(尽量使程序名唯一)
 APP_SERVER=`echo $(basename $0)|awk -F '.' '{print $1}'`
@@ -26,7 +26,9 @@ fi
 
 #获取程序运行的PID
 getPID(){
-    net_pid=`netstat -anp|grep $APP_PORT|awk '{printf $7}'|cut -d/ -f1`
+    #通过程序名获取PID（shell中会查出子程序PID），再通过程序所在位置提取PID
+    net_pid=`ps aux | grep $APP_DIR | grep $APP_SERVER | grep -v grep | awk '{print $2}'`
+    
     if [ -n "$net_pid" ]; then
         PID=$net_pid
     else
@@ -43,7 +45,7 @@ start(){
         echo "================================================================================================================"  
     else  
 
-        #日志输出到指定文件
+        #运行程序并重新命名程序名，日志输出到指定文件
         exec -a $APP_SERVER java -jar $APP_DIR/integration-0.0.1.jar >>$APP_LOG_DIR/$APP_LOG_NAME &
 
         getPID  
@@ -94,7 +96,7 @@ status(){
     fi  
 }
 
-# 这里是输入运行指令,一般都是 ./boot.sh start,$1是用来接收输入的指令   
+#这里是输入运行指令,一般都是 ./boot.sh start,$1是用来接收输入的指令
 case "$1" in
   start)
         start
@@ -115,3 +117,4 @@ case "$1" in
 esac
 #正常运行程序并退出程序  
 exit 0
+
