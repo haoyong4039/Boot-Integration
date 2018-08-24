@@ -7,7 +7,7 @@ APP_SERVER=`echo $(basename $0)|awk -F '.' '{print $1}'`
 APP_DIR=/usr/local/boot/jar
 
 #日志分割工具安装目录（ yum install cronolog安装，which cronolog查看安装目录）
-APP_LOG_CUT="/usr/sbin/cronolog"
+APP_LOG_CUT=/usr/sbin/cronolog
 #日志输出地址 
 APP_LOG_DIR=/usr/local/boot/log
 
@@ -117,5 +117,3 @@ case "$1" in
 esac
 #正常运行程序并退出程序  
 exit 0
-
-
