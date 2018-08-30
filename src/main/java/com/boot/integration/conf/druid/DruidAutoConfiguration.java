@@ -37,6 +37,7 @@ public class DruidAutoConfiguration
         dataSource.setUsername(druidProperties.getUsername());
         dataSource.setPassword(druidProperties.getPassword());
         dataSource.setDriverClassName(druidProperties.getDriverClass());
+
         dataSource.setInitialSize(druidProperties.getInitialSize());
         dataSource.setMinIdle(druidProperties.getMinIdle());
         dataSource.setMaxActive(druidProperties.getMaxActive());
