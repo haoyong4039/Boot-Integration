@@ -25,7 +25,7 @@ import java.util.List;
 public class UserController
 {
 
-    private static final Logger log = LoggerFactory.getLogger(RedisUtil.class);
+    protected Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private UserService userService;
@@ -55,14 +55,14 @@ public class UserController
         }
         catch (CustomException e)
         {
-            log.error("Custom Error !!!", e);
+            logger.error("Custom Error !!!", e);
 
             retCode = e.getValue();
             responseDto.setRetCode(retCode);
         }
         catch (Exception e)
         {
-            log.error("System Error !!!", e);
+            logger.error("System Error !!!", e);
 
             retCode = CustomCode.ERROR_SYSTEM.getValue();
             responseDto.setRetCode(retCode);

@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 public class MyMqttClient
 {
 
-    private final Logger log = LoggerFactory.getLogger(MyMqttClient.class);
+    protected Logger logger = LoggerFactory.getLogger(getClass());
 
     //连接参数
     private MqttConfig mqttConfig;
@@ -46,7 +46,7 @@ public class MyMqttClient
         try
         {
 
-            log.info("params[{},topic:{}]", mqttConfig.toString(), topic);
+            logger.info("params[{},topic:{}]", mqttConfig.toString(), topic);
 
             // host为主机名，clientid即连接MQTT的客户端ID，一般以唯一标识符表示，MemoryPersistence设置clientid的保存形式，默认为以内存保存
             mqttClient = new MqttClient(mqttConfig.getUri(), mqttConfig.getClientId(), new MemoryPersistence());
@@ -86,12 +86,12 @@ public class MyMqttClient
 
             }
 
-            log.info("Init mqtt client is successfully.params[{}]", mqttConfig.toString());
+            logger.info("Init mqtt client is successfully.params[{}]", mqttConfig.toString());
 
         }
         catch (Exception e)
         {
-            log.error("Init mqtt client is fail.params[{}]", mqttConfig.toString());
+            logger.error("Init mqtt client is fail.params[{}]", mqttConfig.toString());
             e.printStackTrace();
         }
     }
@@ -107,7 +107,7 @@ public class MyMqttClient
     {
         try
         {
-            log.debug("params[msg:{},topic:{}]", msg, topic);
+            logger.debug("params[msg:{},topic:{}]", msg, topic);
 
             MqttMessage message = new MqttMessage();
 
@@ -125,12 +125,12 @@ public class MyMqttClient
             MqttDeliveryToken token = mqttClient.getTopic(topic).publish(message);
             token.waitForCompletion();
 
-            log.debug("Send msg is successfully.[msg:{},topic:{}]", msg, topic);
+            logger.debug("Send msg is successfully.[msg:{},topic:{}]", msg, topic);
         }
         catch (Exception e)
         {
-            log.error("Send msg is fail.params[topic:{},msg:{}]", topic, msg);
-            log.error(topic, e);
+            logger.error("Send msg is fail.params[topic:{},msg:{}]", topic, msg);
+            logger.error(topic, e);
         }
 
     }
@@ -166,7 +166,7 @@ public class MyMqttClient
         public void connectionLost(Throwable cause)
         {
             // 连接丢失后，一般在这里面进行重连
-            log.info("Mqtt connection is lost");
+            logger.info("Mqtt connection is lost");
 
             synchronized (this)
             {
@@ -175,13 +175,13 @@ public class MyMqttClient
                     try
                     {
                         connect();
-                        log.info("{},Mqtt recconnection is successfully.", mqttConfig.toString());
+                        logger.info("{},Mqtt recconnection is successfully.", mqttConfig.toString());
 
                         break;
                     }
                     catch (Exception e)
                     {
-                        log.error("{},Mqtt recconnection is fail.", mqttConfig.toString(), e);
+                        logger.error("{},Mqtt recconnection is fail.", mqttConfig.toString(), e);
 
                         try
                         {
@@ -197,7 +197,7 @@ public class MyMqttClient
 
         public void deliveryComplete(IMqttDeliveryToken token)
         {
-            log.info("deliveryComplete---------" + token.isComplete());
+            logger.info("deliveryComplete---------" + token.isComplete());
         }
 
         /**

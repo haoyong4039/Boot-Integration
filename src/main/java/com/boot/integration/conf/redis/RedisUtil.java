@@ -1,7 +1,5 @@
 package com.boot.integration.conf.redis;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -14,9 +12,6 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class RedisUtil
 {
-
-    private static final Logger log = LoggerFactory.getLogger(RedisUtil.class);
-
     @Autowired
     private RedisTemplate redisTemplate;
 

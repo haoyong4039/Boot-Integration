@@ -23,7 +23,7 @@ import java.sql.SQLException;
 public class DruidAutoConfiguration
 {
 
-    private final Logger logger = LoggerFactory.getLogger(DruidAutoConfiguration.class);
+    protected Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private DruidProperties druidProperties;

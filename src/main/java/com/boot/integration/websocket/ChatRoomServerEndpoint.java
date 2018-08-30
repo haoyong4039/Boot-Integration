@@ -30,7 +30,7 @@ import static com.boot.integration.websocket.WebSocketUtils.sendMessageAll;
 public class ChatRoomServerEndpoint
 {
 
-    private static final Logger log = LoggerFactory.getLogger(ChatRoomServerEndpoint.class);
+    protected Logger logger = LoggerFactory.getLogger(getClass());
 
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //HH表示24小时制
 
@@ -41,7 +41,7 @@ public class ChatRoomServerEndpoint
 
         String joinMessage = "欢迎用户[" + username + "] 来到聊天室！";
 
-        log.info("[{}] - [{}]", joinMessage, dateFormat.format(new Date()));
+        logger.info("[{}] - [{}]", joinMessage, dateFormat.format(new Date()));
 
         sendMessageAll(joinMessage);
     }
@@ -52,7 +52,7 @@ public class ChatRoomServerEndpoint
 
         String newMessage = "用户[" + username + "] : " + message;
 
-        log.info("[{}] - [{}]", newMessage, dateFormat.format(new Date()));
+        logger.info("[{}] - [{}]", newMessage, dateFormat.format(new Date()));
 
         sendMessageAll(newMessage);
     }
@@ -65,7 +65,7 @@ public class ChatRoomServerEndpoint
 
         String exitMessage = "用户[" + username + "] 已经离开聊天室了！";
 
-        log.info("[{}] - [{}]", exitMessage, dateFormat.format(new Date()));
+        logger.info("[{}] - [{}]", exitMessage, dateFormat.format(new Date()));
 
         sendMessageAll(exitMessage);
 

@@ -6,7 +6,6 @@ import com.boot.integration.exeption.CustomCode;
 import com.boot.integration.mapper.UserMapper;
 import com.boot.integration.model.User;
 import com.boot.integration.service.UserService;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +23,7 @@ import java.util.concurrent.TimeUnit;
 @Transactional
 public class UserServiceImpl implements UserService
 {
-
-    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
+    protected Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private UserMapper userMapper;
@@ -48,13 +46,13 @@ public class UserServiceImpl implements UserService
             {
                 userList = (List<User>)redisUtil.getValue(key);
 
-                log.info("[queryUserRoles from] - [redis] - data:{}", userList);
+                logger.info("[queryUserRoles from] - [redis] - data:{}", userList);
             }
             else
             {
                 userList = userMapper.queryUserRole(userId);
 
-                log.info("[queryUserRoles from] - [mysql] - data:{}", userList);
+                logger.info("[queryUserRoles from] - [mysql] - data:{}", userList);
 
                 if (userList.size() == 0)
                 {

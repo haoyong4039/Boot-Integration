@@ -24,7 +24,7 @@ import java.util.List;
 public class ObjectController
 {
 
-    private static final Logger log = LoggerFactory.getLogger(ObjectController.class);
+    protected Logger logger = LoggerFactory.getLogger(getClass());
 
     public static final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -43,12 +43,12 @@ public class ObjectController
     @RequestMapping(value = "/json", method = RequestMethod.POST)
     public void readValue(@RequestBody JSONObject jsonObject)
     {
-        log.info("[username] - {}......[password] - {}", jsonObject.getString("username"), jsonObject.getString("password"));
+        logger.info("[username] - {}......[password] - {}", jsonObject.getString("username"), jsonObject.getString("password"));
 
         try
         {
             User user = objectMapper.readValue(String.valueOf(jsonObject), User.class);
-            log.info("[user] - {}", user);
+            logger.info("[user] - {}", user);
         }
         catch (IOException e)
         {
@@ -79,19 +79,19 @@ public class ObjectController
             user.setPassword("admin");
 
             byte[] objectToBytes = objectMapper.writeValueAsBytes(user);
-            log.info("objectToBytes: {}", objectToBytes);
+            logger.info("objectToBytes: {}", objectToBytes);
 
             User bytesToObject = objectMapper.readValue(objectToBytes, User.class);
-            log.info("bytesToObject: {}", bytesToObject);
+            logger.info("bytesToObject: {}", bytesToObject);
 
             List<User> userList = new ArrayList<>();
             userList.add(user);
 
             byte[] objectToBytes2 = objectMapper.writeValueAsBytes(userList);
-            log.info("objectToBytes2: {}", objectToBytes2);
+            logger.info("objectToBytes2: {}", objectToBytes2);
 
             List<User> bytesToObjectList = objectMapper.readValue(objectToBytes2, List(User.class));
-            log.info("bytesToObjectList: {}", bytesToObjectList);
+            logger.info("bytesToObjectList: {}", bytesToObjectList);
 
         }
         catch (JsonProcessingException e)
