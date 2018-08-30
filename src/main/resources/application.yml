@@ -16,10 +16,10 @@ spring:
 
 # 日志格式
 logging:
-    # 设置包级别
+    # 设置包日志级别
     level:
         com.boot.integration.mapper: debug
-    # 设置控制台日志打印格式
+    # 设置控制台打印日志格式
     pattern:
       console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %C.%M[%L] - %msg%n"
 
