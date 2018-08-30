@@ -18,35 +18,32 @@ import java.sql.SQLException;
  */
 @Configuration
 @EnableConfigurationProperties(DruidProperties.class)
-@ConditionalOnClass(DruidDataSource.class)
-@ConditionalOnProperty(prefix = "druid", name = "url")
-@AutoConfigureBefore(DataSourceAutoConfiguration.class)
 public class DruidAutoConfiguration
 {
 
     @Autowired
-    private DruidProperties properties;
+    private DruidProperties druidProperties;
 
     @Bean
     public DataSource dataSource()
     {
         DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setUrl(properties.getUrl());
-        dataSource.setUsername(properties.getUsername());
-        dataSource.setPassword(properties.getPassword());
-        if (properties.getInitialSize() > 0)
+        dataSource.setUrl(druidProperties.getUrl());
+        dataSource.setUsername(druidProperties.getUsername());
+        dataSource.setPassword(druidProperties.getPassword());
+        if (druidProperties.getInitialSize() > 0)
         {
-            dataSource.setInitialSize(properties.getInitialSize());
+            dataSource.setInitialSize(druidProperties.getInitialSize());
         }
-        if (properties.getMinIdle() > 0)
+        if (druidProperties.getMinIdle() > 0)
         {
-            dataSource.setMinIdle(properties.getMinIdle());
+            dataSource.setMinIdle(druidProperties.getMinIdle());
         }
-        if (properties.getMaxActive() > 0)
+        if (druidProperties.getMaxActive() > 0)
         {
-            dataSource.setMaxActive(properties.getMaxActive());
+            dataSource.setMaxActive(druidProperties.getMaxActive());
         }
-        dataSource.setTestOnBorrow(properties.isTestOnBorrow());
+        dataSource.setTestOnBorrow(druidProperties.isTestOnBorrow());
         try
         {
             dataSource.init();

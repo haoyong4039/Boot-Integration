@@ -173,15 +173,15 @@
 	<profiles>
 		<profile>
 			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<properties>
 				<environment>local</environment>
 			</properties>
 		</profile>
 		<profile>
 			<id>test</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
 			<properties>
 				<environment>test</environment>
 			</properties>
