@@ -36,8 +36,7 @@ public class DruidAutoConfiguration
         dataSource.setUrl(druidProperties.getUrl());
         dataSource.setUsername(druidProperties.getUsername());
         dataSource.setPassword(druidProperties.getPassword());
-        dataSource.setDriverClassName(druidProperties.getDriverClass())
-        ;
+        dataSource.setDriverClassName(druidProperties.getDriverClass());
         dataSource.setInitialSize(druidProperties.getInitialSize());
         dataSource.setMinIdle(druidProperties.getMinIdle());
         dataSource.setMaxActive(druidProperties.getMaxActive());
@@ -54,9 +53,11 @@ public class DruidAutoConfiguration
     }
 
     @Bean
-    public ServletRegistrationBean druidServlet() {
+    public ServletRegistrationBean druidServlet()
+    {
         logger.info("init Druid Servlet Configuration ");
-        ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
+        ServletRegistrationBean servletRegistrationBean =
+            new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
         // IP白名单
         servletRegistrationBean.addInitParameter("allow", "192.168.2.25,127.0.0.1");
         // IP黑名单(共同存在时，deny优先于allow)
@@ -70,7 +71,8 @@ public class DruidAutoConfiguration
     }
 
     @Bean
-    public FilterRegistrationBean filterRegistrationBean() {
+    public FilterRegistrationBean filterRegistrationBean()
+    {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new WebStatFilter());
         filterRegistrationBean.addUrlPatterns("/*");
         filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
