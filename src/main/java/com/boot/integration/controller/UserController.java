@@ -55,14 +55,14 @@ public class UserController
         }
         catch (CustomException e)
         {
-            log.error(e.getMessage(), e);
+            log.error("Custom Error !!!", e);
 
             retCode = e.getValue();
             responseDto.setRetCode(retCode);
         }
         catch (Exception e)
         {
-            log.error(e.getMessage(), e);
+            log.error("System Error !!!", e);
 
             retCode = CustomCode.ERROR_SYSTEM.getValue();
             responseDto.setRetCode(retCode);
