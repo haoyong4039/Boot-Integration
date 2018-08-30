@@ -14,6 +14,8 @@ spring:
 logging:
     level:
         com.boot.integration.mapper: debug
+    pattern:
+      console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %C.%M[%L] - %msg%n"
 
 mybatis:
     type-aliases-package: com.boot.integration.model
