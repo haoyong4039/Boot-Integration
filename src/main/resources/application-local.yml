@@ -1,3 +1,4 @@
+# druid数据源参数
 druid:
     url: jdbc:mysql://localhost:3306/design?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true
     username: root
@@ -8,6 +9,7 @@ druid:
     max-active: 20
 
 spring:
+    # redis连接配置
     redis:
         host: localhost
         port: 6379
@@ -21,6 +23,7 @@ spring:
         timeout: 0
         password:
 
+    # rabbitmq连接配置
     rabbitmq:
         host: localhost
         port: 5672
