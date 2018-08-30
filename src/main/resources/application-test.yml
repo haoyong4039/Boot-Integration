@@ -2,11 +2,10 @@ druid:
     url: jdbc:mysql://47.106.187.24:3306/design?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true
     username: root
     password: root
+    driver-class: com.mysql.jdbc.Driver
     initial-size: 1
     min-idle: 1
     max-active: 20
-    test-on-borrow: true
-    driver-class: com.mysql.jdbc.Driver
 
 spring:
     redis:

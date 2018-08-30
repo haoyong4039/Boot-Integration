@@ -16,13 +16,11 @@ public class DruidProperties
 
     private String driverClass;
 
-    private int maxActive;
+    private int initialSize;
 
     private int minIdle;
 
-    private int initialSize;
-
-    private boolean testOnBorrow;
+    private int maxActive;
 
     public String getUrl()
     {
@@ -64,14 +62,14 @@ public class DruidProperties
         this.driverClass = driverClass;
     }
 
-    public int getMaxActive()
+    public int getInitialSize()
     {
-        return maxActive;
+        return initialSize;
     }
 
-    public void setMaxActive(int maxActive)
+    public void setInitialSize(int initialSize)
     {
-        this.maxActive = maxActive;
+        this.initialSize = initialSize;
     }
 
     public int getMinIdle()
@@ -84,23 +82,13 @@ public class DruidProperties
         this.minIdle = minIdle;
     }
 
-    public int getInitialSize()
+    public int getMaxActive()
     {
-        return initialSize;
+        return maxActive;
     }
 
-    public void setInitialSize(int initialSize)
+    public void setMaxActive(int maxActive)
     {
-        this.initialSize = initialSize;
-    }
-
-    public boolean isTestOnBorrow()
-    {
-        return testOnBorrow;
-    }
-
-    public void setTestOnBorrow(boolean testOnBorrow)
-    {
-        this.testOnBorrow = testOnBorrow;
+        this.maxActive = maxActive;
     }
 }
