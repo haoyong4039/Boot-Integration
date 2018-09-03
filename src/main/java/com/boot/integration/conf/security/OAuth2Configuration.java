@@ -44,7 +44,8 @@ public class OAuth2Configuration
         }
 
         @Override
-        public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+        public void configure(ResourceServerSecurityConfigurer resources)
+        {
             resources
                 .authenticationEntryPoint(customAuthenticationEntryPoint)
                 .accessDeniedHandler(customAccessDeniedHandler);
@@ -56,15 +57,6 @@ public class OAuth2Configuration
     protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter
     {
 
-        @Autowired
-        private DataSource dataSource;
-
-        @Bean
-        public TokenStore tokenStore()
-        {
-            return new JdbcTokenStore(dataSource);
-        }
-
 //        @Autowired
 //        private RedisConnectionFactory redisConnectionFactory;
 //
@@ -73,6 +65,15 @@ public class OAuth2Configuration
 //        {
 //            return new RedisTokenStore(redisConnectionFactory);
 //        }
+
+        @Autowired
+        private DataSource dataSource;
+
+        @Bean
+        public TokenStore tokenStore()
+        {
+            return new JdbcTokenStore(dataSource);
+        }
 
         @Autowired
         private AuthenticationManager authenticationManager;
@@ -86,7 +87,6 @@ public class OAuth2Configuration
         @Override
         public void configure(AuthorizationServerSecurityConfigurer oauthServer)
         {
-            //允许表单认证
             oauthServer.allowFormAuthenticationForClients();
         }
 
