@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
@@ -27,21 +28,28 @@ public class OAuth2Configuration
     @EnableResourceServer
     protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     {
+        @Autowired
+        private CustomAccessDeniedHandler customAccessDeniedHandler;
 
         @Autowired
-        private AuthExceptionEntryPoint authExceptionEntryPoint;
+        private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
         @Override
         public void configure(HttpSecurity http) throws Exception
         {
-            http.exceptionHandling()
-                .authenticationEntryPoint(authExceptionEntryPoint)
-                .and()
+            http
                 .authorizeRequests()
                 .antMatchers("/static/**","/chat-room/**","/object/**","/druid/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated();
+        }
+
+        @Override
+        public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+            resources
+                .authenticationEntryPoint(customAuthenticationEntryPoint)
+                .accessDeniedHandler(customAccessDeniedHandler);
         }
     }
 

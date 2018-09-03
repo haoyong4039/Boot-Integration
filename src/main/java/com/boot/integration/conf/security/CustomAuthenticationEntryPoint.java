@@ -22,7 +22,7 @@ import java.util.Map;
  * @since 1.0
  */
 @Component
-public class AuthExceptionEntryPoint implements AuthenticationEntryPoint
+public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint
 {
 
     @Override
@@ -30,7 +30,7 @@ public class AuthExceptionEntryPoint implements AuthenticationEntryPoint
         throws ServletException
     {
         ResponseDto responseDto = new ResponseDto();
-        responseDto.setRetCode(CustomCode.ERROR_ACCESS_REQUIRED.getValue());
+        responseDto.setRetCode(CustomCode.ERROR_TOKEN.getValue());
         responseDto.setRetData(authException.getMessage());
 
         response.setContentType("application/json");

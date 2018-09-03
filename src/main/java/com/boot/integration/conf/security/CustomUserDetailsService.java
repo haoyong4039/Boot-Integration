@@ -19,7 +19,7 @@ import java.util.Iterator;
  * Created by haoyong on 2018/1/4.
  */
 @Component
-public class MyUserDetailsService implements UserDetailsService
+public class CustomUserDetailsService implements UserDetailsService
 {
 
     @Autowired
