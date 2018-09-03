@@ -66,6 +66,7 @@ public class UserController
 
             retCode = CustomCode.ERROR_SYSTEM.getValue();
             responseDto.setRetCode(retCode);
+            responseDto.setRetData(e.getMessage());
         }
 
         return responseDto;
