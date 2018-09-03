@@ -1,9 +1,7 @@
 package com.boot.integration.conf.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -23,12 +21,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception
     {
         auth.userDetailsService(customUserDetailsService).passwordEncoder(new Md5PasswordEncoder());
-    }
-
-    @Override
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception
-    {
-        return super.authenticationManagerBean();
     }
 }
