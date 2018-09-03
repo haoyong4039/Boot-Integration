@@ -12,6 +12,8 @@ public enum CustomCode
 
     ERROR_BAD_CREDENTIALS(103),
 
+    ERROR_ACCESS_REQUIRED(104),
+
     ERROR_USER_NOT_EXIST(1001);
 
     private int value;

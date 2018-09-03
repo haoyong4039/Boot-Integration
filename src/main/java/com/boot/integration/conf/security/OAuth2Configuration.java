@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
@@ -28,13 +29,13 @@ public class OAuth2Configuration
     {
 
         @Autowired
-        private MyAuthenticationEntryPoint myAuthenticationEntryPoint;
+        private AuthExceptionEntryPoint authExceptionEntryPoint;
 
         @Override
         public void configure(HttpSecurity http) throws Exception
         {
             http.exceptionHandling()
-                .authenticationEntryPoint(myAuthenticationEntryPoint)
+                .authenticationEntryPoint(authExceptionEntryPoint)
                 .and()
                 .authorizeRequests()
                 .antMatchers("/static/**","/chat-room/**","/object/**","/druid/**")
