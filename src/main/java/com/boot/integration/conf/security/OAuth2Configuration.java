@@ -33,6 +33,14 @@ public class OAuth2Configuration
         private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
         @Override
+        public void configure(ResourceServerSecurityConfigurer resources)
+        {
+            resources
+                .authenticationEntryPoint(customAuthenticationEntryPoint)
+                .accessDeniedHandler(customAccessDeniedHandler);
+        }
+
+        @Override
         public void configure(HttpSecurity http) throws Exception
         {
             http
@@ -41,14 +49,6 @@ public class OAuth2Configuration
                 .permitAll()
                 .anyRequest()
                 .authenticated();
-        }
-
-        @Override
-        public void configure(ResourceServerSecurityConfigurer resources)
-        {
-            resources
-                .authenticationEntryPoint(customAuthenticationEntryPoint)
-                .accessDeniedHandler(customAccessDeniedHandler);
         }
     }
 
@@ -103,5 +103,4 @@ public class OAuth2Configuration
                 .refreshTokenValiditySeconds(60 * 60 * 24);
         }
     }
-
 }
