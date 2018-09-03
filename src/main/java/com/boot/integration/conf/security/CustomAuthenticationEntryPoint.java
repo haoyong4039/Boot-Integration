@@ -29,8 +29,8 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint
         response.setContentType("application/json");
         try
         {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.writeValue(response.getOutputStream(), responseDto);
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.writeValue(response.getOutputStream(), responseDto);
         }
         catch (Exception e)
         {
