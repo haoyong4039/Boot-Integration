@@ -37,7 +37,7 @@ public class MyUserDetailsService implements UserDetailsService
 
         if (user == null)
         {
-            throw new MyUsernameNotFoundException("User " + username + " was not found in the database");
+            throw new UsernameNotFoundException("用户不存在");
         }
 
         Collection<SimpleGrantedAuthority> collection = new HashSet<SimpleGrantedAuthority>();

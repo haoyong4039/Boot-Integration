@@ -6,7 +6,13 @@ public enum CustomCode
 
     ERROR_SYSTEM(-1),
 
-    ERROR_USER_NOT_EXIST(101);
+    ERROR_ACCESS_DENIED(101),
+
+    ERROR_TOKEN_EXPIRED(102),
+
+    ERROR_BAD_CREDENTIALS(103),
+
+    ERROR_USER_NOT_EXIST(1001);
 
     private int value;
 
