@@ -37,7 +37,7 @@ public class CustomUserDetailsService implements UserDetailsService
 
         if (user == null)
         {
-            throw new UsernameNotFoundException("用户不存在");
+            throw new UsernameNotFoundException("Account Not Exist");
         }
 
         Collection<SimpleGrantedAuthority> collection = new HashSet<SimpleGrantedAuthority>();
