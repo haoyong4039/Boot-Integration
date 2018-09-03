@@ -11,6 +11,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * token授权失败
+ */
 @Component
 public class CustomAccessDeniedHandler implements AccessDeniedHandler
 {

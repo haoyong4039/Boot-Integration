@@ -10,16 +10,9 @@ import org.springframework.stereotype.Component;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
- * Created on 2018/5/24 0024.
- *
- * @author zlf
- * @email i@merryyou.cn
- * @since 1.0
+ * 检验token异常
  */
 @Component
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint
