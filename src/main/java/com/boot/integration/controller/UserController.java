@@ -48,10 +48,10 @@ public class UserController
 
         try
         {
-            List<User> userList = userService.queryUserRoles(userId);
+            User user = userService.queryUserRoles(userId);
 
             responseDto.setRetCode(retCode);
-            responseDto.setRetData(userList);
+            responseDto.setRetData(user);
         }
         catch (CustomException e)
         {

@@ -31,34 +31,31 @@ public class UserServiceImpl implements UserService
     @Autowired
     private RedisUtil redisUtil;
 
-    public List<User> queryUserRoles(Long userId) throws CustomException
+    public User queryUserRoles(Long userId) throws CustomException
     {
-
-        String key = "UserRoles-" + userId;
-
-        boolean iKey = redisUtil.hasKey(key);
-
-        List<User> userList = new ArrayList<>();
+        User user = new User();
 
         try
         {
-            if (iKey)
-            {
-                userList = (List<User>)redisUtil.getValue(key);
+            String userRoleKey = "USER_ROLE_"+userId;
 
-                logger.info("[queryUserRoles from] - [redis] - data:{}", userList);
+            user = (User)redisUtil.get(userRoleKey);
+
+            if (user != null)
+            {
+                logger.info("[queryUserRoles from] - [redis] - data:{}", user);
             }
             else
             {
-                userList = userMapper.queryUserRole(userId);
+                user = userMapper.queryUserRole(userId);
 
-                logger.info("[queryUserRoles from] - [mysql] - data:{}", userList);
+                logger.info("[queryUserRoles from] - [mysql] - data:{}", user);
 
-                if (userList.size() == 0)
+                if (user == null)
                 {
                     throw new CustomException(CustomCode.ERROR_USER_NOT_EXIST.getValue());
                 }
-                redisUtil.setValue(key, userList, 60, TimeUnit.SECONDS);
+                redisUtil.set(userRoleKey, user, 60);
             }
         }
         catch (Exception e)
@@ -66,6 +63,6 @@ public class UserServiceImpl implements UserService
             throw e;
         }
 
-        return userList;
+        return user;
     }
 }

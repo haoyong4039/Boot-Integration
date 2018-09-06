@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -15,7 +13,7 @@ public class RedisUtil
     @Autowired
     private RedisTemplate redisTemplate;
 
-    //判断是否存在key
+    /*============================================判断是否存在key=============================================*/
     public boolean hasKey(String key)
     {
         boolean iKey = redisTemplate.hasKey(key);
@@ -29,35 +27,52 @@ public class RedisUtil
         }
     }
 
-    /*==============================================key value 存储===============================================*/
-    //设置key/value值（无过期）
-    public void setValue(String key, Object value)
+    /*============================================设置缓存时间=============================================*/
+    // seconds为0时不设置，默认永久
+    public void expire(String key, int seconds)
+    {
+        if (seconds > 0)
+        {
+            redisTemplate.expire(key, seconds, TimeUnit.SECONDS);
+        }
+    }
+
+    /*==============================================key/value存储===============================================*/
+    public void set(String key, Object value, int seconds)
     {
         redisTemplate.opsForValue().set(key, value);
+        expire(key, seconds);
     }
 
-    //设置key/value值（有过期）
-    public void setValue(String key, Object value, int time, TimeUnit unit)
-    {
-        redisTemplate.opsForValue().set(key, value, time, unit);
-    }
-
-    //获取key/value值
-    public Object getValue(String key)
+    public Object get(String key)
     {
         return redisTemplate.opsForValue().get(key);
     }
 
-    //同时设置多个key/value
-    public void multiSet(Map<String, Object> map)
+    public void delete(String key)
     {
-        redisTemplate.opsForValue().multiSet(map);
+        redisTemplate.delete(key);
     }
 
-    //同时获取多个key/value
-    public List<Object> multiGet(Collection<String> keys)
+    /*==============================================key/field/value存储===============================================*/
+    public void hashSet(String key, String field, Object value, int seconds)
     {
-        return redisTemplate.opsForValue().multiGet(keys);
+        redisTemplate.opsForHash().put(key, field, value);
+        expire(key, seconds);
     }
 
+    public Object hashGet(String key, String field)
+    {
+        return redisTemplate.opsForHash().get(key, field);
+    }
+
+    public void hashDelete(String key, String field)
+    {
+        redisTemplate.opsForHash().delete(key, field);
+    }
+
+    public Map<String, Object> hashGetAll(String key)
+    {
+        return redisTemplate.opsForHash().entries(key);
+    }
 }

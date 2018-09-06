@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface UserMapper extends BaseMapper<User>
 {
-    List<User> queryUserRole(Long userId);
+    User queryUserRole(Long userId);
 }
