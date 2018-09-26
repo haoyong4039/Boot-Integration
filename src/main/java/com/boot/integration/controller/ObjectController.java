@@ -1,10 +1,14 @@
 package com.boot.integration.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.boot.integration.exeption.CustomException;
 import com.boot.integration.model.User;
+import com.boot.integration.util.JacksonMapper;
+import com.boot.integration.util.MessagePackMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.msgpack.jackson.dataformat.MessagePackFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,8 +30,6 @@ public class ObjectController
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
 
-    public static final ObjectMapper objectMapper = new ObjectMapper();
-
     /**
      * <pre>
      * <一句话功能简述>
@@ -36,71 +38,29 @@ public class ObjectController
      * </pre>
      *
      * @author haoyong
-     * @version [版本号, 2018年8月16日]
-     * @see [相关类/方法]
-     * @since [产品/模块版本]
      */
     @RequestMapping(value = "/json", method = RequestMethod.POST)
     public void readValue(@RequestBody JSONObject jsonObject)
     {
-        logger.info("[username] - {}......[password] - {}", jsonObject.getString("username"), jsonObject.getString("password"));
+        logger.info("[username] - {},[password] - {}", jsonObject.getString("username"), jsonObject.getString("password"));
 
         try
         {
-            User user = objectMapper.readValue(String.valueOf(jsonObject), User.class);
-            logger.info("[user] - {}", user);
+            //字符串转Object对象
+            User user = (User)JacksonMapper.convertStringToObject(String.valueOf(jsonObject),User.class);
+            logger.info("[string to obj] - {}", user);
+
+            //对象转byte数组
+            byte[] bytes = MessagePackMapper.toBytes(user);
+            logger.info("[obj to bytes] - {}", bytes);
+
+            //byte数组转对象
+            user  = MessagePackMapper.toObject(bytes,User.class);
+            logger.info("[bytes to obj] - {}", user);
         }
-        catch (IOException e)
+        catch (CustomException e)
         {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * <pre>
-     * <一句话功能简述>
-     * object对象转byte，byte转object
-     * <功能详细描述>
-     * </pre>
-     *
-     * @author haoyong
-     * @version [版本号, 2018年8月16日]
-     * @see [相关类/方法]
-     * @since [产品/模块版本]
-     */
-    @RequestMapping(value = "/convert", method = RequestMethod.GET)
-    public void convert()
-    {
-
-        try
-        {
-            User user = new User();
-            user.setUsername("root");
-            user.setPassword("admin");
-
-            byte[] objectToBytes = objectMapper.writeValueAsBytes(user);
-            logger.info("objectToBytes: {}", objectToBytes);
-
-            User bytesToObject = objectMapper.readValue(objectToBytes, User.class);
-            logger.info("bytesToObject: {}", bytesToObject);
-
-            List<User> userList = new ArrayList<>();
-            userList.add(user);
-
-            byte[] objectToBytes2 = objectMapper.writeValueAsBytes(userList);
-            logger.info("objectToBytes2: {}", objectToBytes2);
-
-            List<User> bytesToObjectList = objectMapper.readValue(objectToBytes2, List(User.class));
-            logger.info("bytesToObjectList: {}", bytesToObjectList);
-
-        }
-        catch (JsonProcessingException e)
-        {
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
+            logger.error("Custom Error !!!", e);
         }
     }
 
@@ -112,9 +72,6 @@ public class ObjectController
      * </pre>
      *
      * @author haoyong
-     * @version [版本号, 2018年8月16日]
-     * @see [相关类/方法]
-     * @since [产品/模块版本]
      */
     @RequestMapping(value = "/reflect", method = RequestMethod.GET)
     public void reflect()
@@ -178,23 +135,5 @@ public class ObjectController
         {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * <pre>
-     * <一句话功能简述>
-     * 私有方法,获取泛型的TypeReference
-     * <功能详细描述>
-     * </pre>
-     *
-     * @param clazz
-     * @return
-     * @author 姓名 工号
-     * @version [版本号, 2018年6月11日]
-     * @see [类、类#方法、类#成员]
-     */
-    private static <T> JavaType List(Class<?> clazz)
-    {
-        return objectMapper.getTypeFactory().constructParametricType(ArrayList.class, clazz);
     }
 }

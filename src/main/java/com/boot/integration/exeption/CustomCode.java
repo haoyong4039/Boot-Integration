@@ -14,10 +14,14 @@ public enum CustomCode
     // token异常
     ERROR_TOKEN(102),
 
-    // 获取token参数错误
-    ERROR_BAD_CREDENTIALS(103),
+    //用户不存在
+    ERROR_USER_NOT_EXIST(1001),
 
-    ERROR_USER_NOT_EXIST(1001);
+    //json 参数非法
+    ERROR_JSON_PARAMS_ILLEGAL(2001),
+
+    //json 转换异常
+    ERROR_JSON_CONVERT_FAIL(2002);
 
     private int value;
 
