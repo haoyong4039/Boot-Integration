@@ -46,7 +46,7 @@ public class ObjectController
 
         try
         {
-            //字符串转Object对象
+            //字符串转对象
             User user = (User)JacksonMapper.convertStringToObject(String.valueOf(jsonObject),User.class);
             logger.info("[string to obj] - {}", user);
 
