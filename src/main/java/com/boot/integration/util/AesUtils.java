@@ -10,7 +10,7 @@ import org.apache.commons.codec.binary.Base64;
 /**
  * @desc AES 加密工具类
  */
-public class AesUtil
+public class AesUtils
 {
 
     private static final String KEY_ALGORITHM = "AES";
@@ -42,7 +42,7 @@ public class AesUtil
         }
         catch (Exception ex)
         {
-            Logger.getLogger(AesUtil.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AesUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
@@ -71,7 +71,7 @@ public class AesUtil
         }
         catch (Exception ex)
         {
-            Logger.getLogger(AesUtil.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AesUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
@@ -84,11 +84,11 @@ public class AesUtil
         String password = "42d5a42ddebfc247";
 
         //加密
-        String enResult = AesUtil.encrypt(content, password);
+        String enResult = AesUtils.encrypt(content, password);
         System.out.println(enResult);
 
         //解密
-        String deResult = AesUtil.decrypt(enResult, password);
+        String deResult = AesUtils.decrypt(enResult, password);
         System.out.println(deResult);
     }
 
