@@ -1,8 +1,7 @@
-package com.boot.integration.websocket;
+package com.boot.integration.conf.websocket;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,9 +14,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.boot.integration.websocket.WebSocketUtils.LIVING_SESSIONS_CACHE;
-import static com.boot.integration.websocket.WebSocketUtils.sendMessage;
-import static com.boot.integration.websocket.WebSocketUtils.sendMessageAll;
+import static com.boot.integration.conf.websocket.WebSocketUtils.*;
 
 /**
  * 聊天室

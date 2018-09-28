@@ -1,4 +1,4 @@
-package com.boot.integration.websocket;
+package com.boot.integration.conf.websocket;
 
 import javax.websocket.RemoteEndpoint;
 import javax.websocket.Session;

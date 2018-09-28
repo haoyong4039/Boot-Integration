@@ -1,4 +1,4 @@
-package com.boot.integration.websocket;
+package com.boot.integration.conf.websocket;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
