@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author haoyong
  */
-public class MessagePackMapper
+public class MsgPackUtils
 {
 
     private static ObjectMapper mapper = new ObjectMapper(new MessagePackFactory());
@@ -92,7 +92,7 @@ public class MessagePackMapper
         List<T> list = null;
         try
         {
-            list = mapper.readValue(bytes, MessagePackMapper.List(clazz));
+            list = mapper.readValue(bytes, MsgPackUtils.List(clazz));
         }
         catch (IOException e)
         {

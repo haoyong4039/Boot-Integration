@@ -3,12 +3,8 @@ package com.boot.integration.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.boot.integration.exeption.CustomException;
 import com.boot.integration.model.User;
-import com.boot.integration.util.JacksonMapper;
-import com.boot.integration.util.MessagePackMapper;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.msgpack.jackson.dataformat.MessagePackFactory;
+import com.boot.integration.util.JacksonUtils;
+import com.boot.integration.util.MsgPackUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,12 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/object")
@@ -47,15 +40,15 @@ public class ObjectController
         try
         {
             //字符串转对象
-            User user = (User)JacksonMapper.convertStringToObject(String.valueOf(jsonObject),User.class);
+            User user = (User)JacksonUtils.convertStringToObject(String.valueOf(jsonObject),User.class);
             logger.info("[string to obj] - {}", user);
 
             //对象转byte数组
-            byte[] bytes = MessagePackMapper.toBytes(user);
+            byte[] bytes = MsgPackUtils.toBytes(user);
             logger.info("[obj to bytes] - {}", bytes);
 
             //byte数组转对象
-            user  = MessagePackMapper.toObject(bytes,User.class);
+            user  = MsgPackUtils.toObject(bytes,User.class);
             logger.info("[bytes to obj] - {}", user);
         }
         catch (CustomException e)
