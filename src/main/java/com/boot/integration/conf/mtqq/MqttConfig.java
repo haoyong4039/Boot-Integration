@@ -107,8 +107,7 @@ public class MqttConfig
         this.keepAliveInterval = keepAliveInterval;
     }
 
-    @Override
-    public String toString()
+    @Override public String toString()
     {
         return "MqttConfig{" + "clientId='" + clientId + '\'' + ", uri='" + uri + '\'' + ", username='" + username
             + '\'' + ", password='" + password + '\'' + ", willTopic='" + willTopic + '\'' + ", willMsg='" + willMsg
