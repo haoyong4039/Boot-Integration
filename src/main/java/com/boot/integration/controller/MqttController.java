@@ -2,6 +2,7 @@ package com.boot.integration.controller;
 
 import com.boot.integration.conf.mtqq.client.ClientOneService;
 import com.boot.integration.conf.mtqq.client.ClientTwoService;
+import com.boot.integration.util.BeanUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,16 +15,11 @@ import javax.annotation.Resource;
 public class MqttController
 {
 
-    @Resource
-    private ClientOneService clientOneService;
-
-    @Resource
-    private ClientTwoService clientTwoService;
-
     @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/one", method = RequestMethod.GET)
     public void clientOne()
     {
+        ClientOneService clientOneService = BeanUtils.getObjectBean("clientOneService");
         clientOneService.send("two", "你好啊，two");
     }
 
@@ -31,6 +27,7 @@ public class MqttController
     @RequestMapping(value = "/two", method = RequestMethod.GET)
     public void clientTwo()
     {
+        ClientTwoService clientTwoService = BeanUtils.getObjectBean("clientTwoService");
         clientTwoService.send("one", "你好啊，one");
     }
 }
