@@ -29,6 +29,7 @@ public class MyMqttClient
     // MQTT的连接设置
     private MqttConnectOptions mqttConnectOptions;
 
+    //订阅消息处理
     private IMqttMsgHandler iMqttMsgHandler;
 
     public MyMqttClient(MqttConfig mqttConfig, String[] topic, IMqttMsgHandler iMqttMsgHandler)
