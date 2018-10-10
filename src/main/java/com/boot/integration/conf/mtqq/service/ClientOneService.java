@@ -1,12 +1,12 @@
-package com.boot.integration.conf.mtqq.client;
+package com.boot.integration.conf.mtqq.service;
 
 import com.boot.integration.conf.mtqq.MqttConfig;
 import com.boot.integration.conf.mtqq.MyMqttClient;
-import com.boot.integration.conf.mtqq.handle.impl.ClientTwoHandler;
+import com.boot.integration.conf.mtqq.handle.impl.ClientOneHandler;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ClientTwoService
+public class ClientOneService
 {
     private MyMqttClient myMqttClient;
 
@@ -14,13 +14,13 @@ public class ClientTwoService
     {
         MqttConfig mqttConfig = new MqttConfig();
         mqttConfig.setUri("tcp://127.0.0.1:61613");
-        mqttConfig.setClientId("clientTwo");
+        mqttConfig.setClientId("clientOne");
         mqttConfig.setUsername("admin");
         mqttConfig.setPassword("password");
 
-        String[] topic = {"two"};
+        String[] topic = {"one"};
 
-        myMqttClient = new MyMqttClient(mqttConfig, topic, new ClientTwoHandler());
+        myMqttClient = new MyMqttClient(mqttConfig, topic, new ClientOneHandler());
 
         myMqttClient.connect();
     }

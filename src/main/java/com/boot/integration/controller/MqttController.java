@@ -1,14 +1,12 @@
 package com.boot.integration.controller;
 
-import com.boot.integration.conf.mtqq.client.ClientOneService;
-import com.boot.integration.conf.mtqq.client.ClientTwoService;
+import com.boot.integration.conf.mtqq.service.ClientOneService;
+import com.boot.integration.conf.mtqq.service.ClientTwoService;
 import com.boot.integration.util.BeanUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/mqtt")
