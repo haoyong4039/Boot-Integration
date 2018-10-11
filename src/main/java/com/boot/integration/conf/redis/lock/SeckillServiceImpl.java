@@ -42,12 +42,14 @@ public class SeckillServiceImpl implements SeckillService
         return "限量" + products.get(productId) + "份,还剩:" + stock.get(productId) + "份,成功下单人数:" + orders.size() + "人";
     }
 
-    @Override public String queryDetail(String productId)
+    @Override
+    public String queryDetail(String productId)
     {
         return this.queryMap(productId);
     }
 
-    @Override public void secKill(String productId)
+    @Override
+    public void secKill(String productId)
         throws CustomException
     {
         // 1.查询该商品库存，为0则活动结束
@@ -83,7 +85,7 @@ public class SeckillServiceImpl implements SeckillService
             throw new CustomException(CustomCode.ERROR_USER_MORE);
         }
 
-        //解锁
+        // 5.解锁
         redisLock.unlock(productId, String.valueOf(time));
     }
 }
