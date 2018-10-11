@@ -26,18 +26,19 @@ class TicketThread extends Thread
     {
         for (int i = 0; i < 3; i++)
         {
-            //            synchronized (this)
-            //            {
-            //                if (ticketNum > 0)
-            //                {
-            //                    System.out.println("===================================");
-            //                    System.out.println("当前票数：" + ticketNum);
-            //                    System.out.println(Thread.currentThread().getName()+"-->已抢票");
-            //                    ticketNum--;
-            //                    System.out.println("当前剩票：" + ticketNum);
-            //                    System.out.println("===================================");
-            //                }
-            //            }
+//            //同步当前对象
+//            synchronized (this)
+//            {
+//                if (ticketNum > 0)
+//                {
+//                    System.out.println("===================================");
+//                    System.out.println("当前票数：" + ticketNum);
+//                    System.out.println(Thread.currentThread().getName()+"-->已抢票");
+//                    ticketNum--;
+//                    System.out.println("当前剩票：" + ticketNum);
+//                    System.out.println("===================================");
+//                }
+//            }
 
             sale();
         }
