@@ -30,6 +30,7 @@ public class ThreadMethod
             {
                 try
                 {
+                    //线程强制执行
                     t.join();
                 }
                 catch (InterruptedException e)
@@ -54,6 +55,7 @@ public class ThreadMethod
             }
         };
 
+        //线程后台运行
         t.setDaemon(true);
         t.start();
     }
