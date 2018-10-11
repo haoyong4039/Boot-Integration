@@ -1,6 +1,5 @@
 package com.boot.integration.controller;
 
-import com.boot.integration.conf.redis.RedisUtil;
 import com.boot.integration.dto.ResponseDto;
 import com.boot.integration.exeption.CustomCode;
 import com.boot.integration.exeption.CustomException;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * Created by haoyong on 2018/1/4.
@@ -55,17 +52,12 @@ public class UserController
         }
         catch (CustomException e)
         {
-            logger.error("Custom Error !!!", e);
-
-            retCode = e.getValue();
-            responseDto.setRetCode(retCode);
+            responseDto.setRetCode(e.getValue());
+            responseDto.setRetData(e.getMessage());
         }
         catch (Exception e)
         {
-            logger.error("System Error !!!", e);
-
-            retCode = CustomCode.ERROR_SYSTEM.getValue();
-            responseDto.setRetCode(retCode);
+            responseDto.setRetCode(CustomCode.ERROR_SYSTEM.getValue());
             responseDto.setRetData(e.getMessage());
         }
 

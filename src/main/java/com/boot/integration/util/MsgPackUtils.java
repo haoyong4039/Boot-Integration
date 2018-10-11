@@ -44,7 +44,7 @@ public class MsgPackUtils
         }
         catch (JsonProcessingException e)
         {
-            throw new CustomException(CustomCode.ERROR_SYSTEM.getValue());
+            throw new CustomException(CustomCode.ERROR_SYSTEM);
         }
 
     }
@@ -70,7 +70,7 @@ public class MsgPackUtils
         }
         catch (IOException e)
         {
-            throw new CustomException(CustomCode.ERROR_SYSTEM.getValue());
+            throw new CustomException(CustomCode.ERROR_SYSTEM);
         }
         return value;
     }
@@ -97,7 +97,7 @@ public class MsgPackUtils
         catch (IOException e)
         {
             list = new ArrayList<>();
-            throw new CustomException(CustomCode.ERROR_SYSTEM.getValue());
+            throw new CustomException(CustomCode.ERROR_SYSTEM);
         }
         return list;
     }

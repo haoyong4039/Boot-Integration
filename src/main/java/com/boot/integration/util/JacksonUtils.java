@@ -36,7 +36,7 @@ public class JacksonUtils
     {
         if (StringUtils.isEmpty(str))
         {
-            throw new CustomException(CustomCode.ERROR_JSON_PARAMS_ILLEGAL.getValue());
+            throw new CustomException(CustomCode.ERROR_JSON_PARAMS_ILLEGAL);
         }
         try
         {
@@ -44,7 +44,7 @@ public class JacksonUtils
         }
         catch (Exception e)
         {
-            throw new CustomException(CustomCode.ERROR_JSON_CONVERT_FAIL.getValue());
+            throw new CustomException(CustomCode.ERROR_JSON_CONVERT_FAIL);
         }
     }
 
@@ -65,7 +65,7 @@ public class JacksonUtils
     {
         if (StringUtils.isEmpty(str))
         {
-            throw new CustomException(CustomCode.ERROR_JSON_PARAMS_ILLEGAL.getValue());
+            throw new CustomException(CustomCode.ERROR_JSON_PARAMS_ILLEGAL);
         }
 
         try
@@ -74,7 +74,7 @@ public class JacksonUtils
         }
         catch (Exception e)
         {
-            throw new CustomException(CustomCode.ERROR_JSON_CONVERT_FAIL.getValue());
+            throw new CustomException(CustomCode.ERROR_JSON_CONVERT_FAIL);
         }
     }
 
@@ -95,7 +95,7 @@ public class JacksonUtils
     {
         if (StringUtils.isEmpty(str) || valueType == null)
         {
-            throw new CustomException(CustomCode.ERROR_JSON_PARAMS_ILLEGAL.getValue());
+            throw new CustomException(CustomCode.ERROR_JSON_PARAMS_ILLEGAL);
         }
         try
         {
@@ -103,7 +103,7 @@ public class JacksonUtils
         }
         catch (Exception e)
         {
-            throw new CustomException(CustomCode.ERROR_JSON_CONVERT_FAIL.getValue());
+            throw new CustomException(CustomCode.ERROR_JSON_CONVERT_FAIL);
         }
     }
 
@@ -123,7 +123,7 @@ public class JacksonUtils
     {
         if (obj == null)
         {
-            throw new CustomException(CustomCode.ERROR_JSON_PARAMS_ILLEGAL.getValue());
+            throw new CustomException(CustomCode.ERROR_JSON_PARAMS_ILLEGAL);
         }
         try
         {
@@ -131,7 +131,7 @@ public class JacksonUtils
         }
         catch (Exception e)
         {
-            throw new CustomException(CustomCode.ERROR_JSON_CONVERT_FAIL.getValue());
+            throw new CustomException(CustomCode.ERROR_JSON_CONVERT_FAIL);
         }
     }
 

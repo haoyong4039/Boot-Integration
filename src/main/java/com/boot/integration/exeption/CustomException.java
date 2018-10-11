@@ -10,10 +10,10 @@ public class CustomException extends Exception
         super();
     }
 
-    public CustomException(int value)
+    public CustomException(CustomCode customCode)
     {
-        super(String.valueOf(value));
-        this.value = value;
+        super(customCode.getMessage());
+        this.value = customCode.getValue();
     }
 
     public int getValue()

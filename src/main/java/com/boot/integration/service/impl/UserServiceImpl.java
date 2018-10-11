@@ -53,8 +53,9 @@ public class UserServiceImpl implements UserService
 
                 if (user == null)
                 {
-                    throw new CustomException(CustomCode.ERROR_USER_NOT_EXIST.getValue());
+                    throw new CustomException(CustomCode.ERROR_USER_NOT_EXIST);
                 }
+
                 redisUtil.set(userRoleKey, user, 60);
             }
         }
