@@ -1,6 +1,6 @@
 package com.boot.integration.controller;
 
-import com.boot.integration.conf.redis.lock.SeckillService;
+import com.boot.integration.conf.seckill.SeckillService;
 import com.boot.integration.exeption.CustomException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,8 +25,8 @@ public class SeckillController
     private SeckillService seckillService;
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @RequestMapping(value = "/start/{time}", method = RequestMethod.GET)
-    public void start(@PathVariable int time)
+    @RequestMapping(value = "/start", method = RequestMethod.GET)
+    public void start()
     {
         Thread t_A = new Thread()
         {

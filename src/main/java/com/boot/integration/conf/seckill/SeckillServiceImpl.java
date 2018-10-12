@@ -1,4 +1,4 @@
-package com.boot.integration.conf.redis.lock;
+package com.boot.integration.conf.seckill;
 
 import com.boot.integration.exeption.CustomCode;
 import com.boot.integration.exeption.CustomException;

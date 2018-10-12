@@ -16,6 +16,10 @@ public enum CustomCode
 
     ERROR_TIME_OVER(1003, "库存不足"),
 
+    ERROR_REPEAT(1004, "请勿重复提交"),
+
+    ERROR_LOCK_KEY_NULL(1005, "LOCK KEY IS NULL"),
+
     ERROR_JSON_PARAMS_ILLEGAL(2001, "json参数非法"),
 
     ERROR_JSON_CONVERT_FAIL(2002, "json转换异常");
