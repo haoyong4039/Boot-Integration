@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("/user")
 public class UserController
@@ -47,5 +49,11 @@ public class UserController
         responseDto.setRetData(user);
 
         return responseDto;
+    }
+
+    @RequestMapping(value = "/query/principal", method = RequestMethod.GET)
+    public void getPrincipal(Principal principal)
+    {
+        logger.info("principal:{}",principal);
     }
 }

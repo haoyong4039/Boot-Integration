@@ -4,6 +4,8 @@ import com.boot.integration.mapper.RoleMapper;
 import com.boot.integration.mapper.UserMapper;
 import com.boot.integration.model.Role;
 import com.boot.integration.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +24,8 @@ import java.util.Iterator;
 public class CustomUserDetailsService implements UserDetailsService
 {
 
+    protected Logger logger = LoggerFactory.getLogger(getClass());
+
     @Autowired
     private UserMapper userMapper;
 
@@ -34,6 +38,8 @@ public class CustomUserDetailsService implements UserDetailsService
         User user = new User();
         user.setUsername(username);
         user = userMapper.selectOne(user);
+
+        logger.info("user:{}",user);
 
         if (user == null)
         {

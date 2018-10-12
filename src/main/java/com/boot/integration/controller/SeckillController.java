@@ -20,7 +20,6 @@ public class SeckillController
     @Autowired
     private SeckillService seckillService;
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/start", method = RequestMethod.GET)
     public void start()
     {

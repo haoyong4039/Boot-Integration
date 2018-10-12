@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class MqttController
 {
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/one", method = RequestMethod.GET)
     public void clientOne()
     {
@@ -21,7 +20,6 @@ public class MqttController
         clientOneService.send("two", "你好啊，two");
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/two", method = RequestMethod.GET)
     public void clientTwo()
     {
