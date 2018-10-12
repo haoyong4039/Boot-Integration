@@ -31,25 +31,22 @@ public class UserServiceImpl implements UserService
     @Autowired
     private RedisUtil redisUtil;
 
-    public User queryUserRoles(Long userId) throws CustomException
+    public User queryUserRoles(Long userId)
+        throws CustomException
     {
         User user = new User();
 
         try
         {
-            String userRoleKey = "USER_ROLE_"+userId;
+            String userRoleKey = "USER_ROLE_" + userId;
 
             user = (User)redisUtil.get(userRoleKey);
 
-            if (user != null)
-            {
-                logger.info("[queryUserRoles from] - [redis] - data:{}", user);
-            }
-            else
+            if (user == null)
             {
                 user = userMapper.queryUserRole(userId);
 
-                logger.info("[queryUserRoles from] - [mysql] - data:{}", user);
+                logger.info("user:{}", user);
 
                 if (user == null)
                 {
@@ -59,9 +56,13 @@ public class UserServiceImpl implements UserService
                 redisUtil.set(userRoleKey, user, 60);
             }
         }
-        catch (Exception e)
+        catch (CustomException e)
         {
             throw e;
+        }
+        catch (Exception e)
+        {
+            throw new CustomException(CustomCode.ERROR_SYSTEM.getValue(), e.getMessage());
         }
 
         return user;

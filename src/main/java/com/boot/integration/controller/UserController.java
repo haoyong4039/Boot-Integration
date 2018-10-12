@@ -34,29 +34,17 @@ public class UserController
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/query/role/{userId}", method = RequestMethod.GET)
-    public ResponseDto queryUserRole(@PathVariable Long userId)
+    public ResponseDto queryUserRole(@PathVariable Long userId) throws CustomException
     {
+
+        logger.info("userId:{}", userId);
+
+        User user = userService.queryUserRoles(userId);
+
+        // 设置返回格式
         ResponseDto responseDto = new ResponseDto();
-
-        int retCode = CustomCode.SUCCESS.getValue();
-
-        try
-        {
-            User user = userService.queryUserRoles(userId);
-
-            responseDto.setRetCode(retCode);
-            responseDto.setRetData(user);
-        }
-        catch (CustomException e)
-        {
-            responseDto.setRetCode(e.getValue());
-            responseDto.setRetData(e.getMessage());
-        }
-        catch (Exception e)
-        {
-            responseDto.setRetCode(CustomCode.ERROR_SYSTEM.getValue());
-            responseDto.setRetData(e.getMessage());
-        }
+        responseDto.setRetCode(CustomCode.SUCCESS.getValue());
+        responseDto.setRetData(user);
 
         return responseDto;
     }

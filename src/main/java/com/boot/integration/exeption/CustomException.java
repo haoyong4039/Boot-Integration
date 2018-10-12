@@ -16,6 +16,12 @@ public class CustomException extends Exception
         this.value = customCode.getValue();
     }
 
+    public CustomException(int value, String message)
+    {
+        super(message);
+        this.value = value;
+    }
+
     public int getValue()
     {
         return value;
