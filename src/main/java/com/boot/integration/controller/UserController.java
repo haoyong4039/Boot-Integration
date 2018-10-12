@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Created by haoyong on 2018/1/4.
- */
 @RestController
 @RequestMapping("/user")
 public class UserController
