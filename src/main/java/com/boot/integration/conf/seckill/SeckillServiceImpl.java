@@ -56,7 +56,7 @@ public class SeckillServiceImpl implements SeckillService
         int stockNum = stock.get(productId);
         if (stockNum == 0)
         {
-            throw new CustomException(CustomCode.ERROR_TIME_OVER);
+            throw new CustomException(CustomCode.ERROR_STOCK_NULL);
         }
 
         // 2.加锁

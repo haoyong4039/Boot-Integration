@@ -14,7 +14,7 @@ public enum CustomCode
 
     ERROR_USER_MORE(1002, "当前人数太多"),
 
-    ERROR_TIME_OVER(1003, "库存不足"),
+    ERROR_STOCK_NULL(1003, "库存不足"),
 
     ERROR_REPEAT(1004, "请勿重复提交"),
 
