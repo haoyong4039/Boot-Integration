@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author haoyong
  */
-public class MsgPackUtils
+public class MessagePackUtils
 {
 
     private static ObjectMapper mapper = new ObjectMapper(new MessagePackFactory());
@@ -44,7 +44,7 @@ public class MsgPackUtils
         }
         catch (JsonProcessingException e)
         {
-            throw new CustomException(CustomCode.ERROR_SYSTEM);
+            throw new CustomException(CustomCode.ERROR_MSG_PACK_CONVERT_FAIL);
         }
 
     }
@@ -70,7 +70,7 @@ public class MsgPackUtils
         }
         catch (IOException e)
         {
-            throw new CustomException(CustomCode.ERROR_SYSTEM);
+            throw new CustomException(CustomCode.ERROR_MSG_PACK_CONVERT_FAIL);
         }
         return value;
     }
@@ -92,12 +92,12 @@ public class MsgPackUtils
         List<T> list = null;
         try
         {
-            list = mapper.readValue(bytes, MsgPackUtils.List(clazz));
+            list = mapper.readValue(bytes, MessagePackUtils.List(clazz));
         }
         catch (IOException e)
         {
             list = new ArrayList<>();
-            throw new CustomException(CustomCode.ERROR_SYSTEM);
+            throw new CustomException(CustomCode.ERROR_MSG_PACK_CONVERT_FAIL);
         }
         return list;
     }

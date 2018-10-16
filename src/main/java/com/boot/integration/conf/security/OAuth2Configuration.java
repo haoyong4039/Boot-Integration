@@ -45,7 +45,7 @@ public class OAuth2Configuration
         {
             http
                 .authorizeRequests()
-                .antMatchers("/static/**","/chat-room/**","/object/**","/druid/**")
+                .antMatchers("/static/**","/chat-room/**","/druid/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated();

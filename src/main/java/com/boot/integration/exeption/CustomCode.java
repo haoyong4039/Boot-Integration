@@ -22,7 +22,9 @@ public enum CustomCode
 
     ERROR_JSON_PARAMS_ILLEGAL(2001, "json参数非法"),
 
-    ERROR_JSON_CONVERT_FAIL(2002, "json转换异常");
+    ERROR_JSON_CONVERT_FAIL(2002, "json转换异常"),
+
+    ERROR_MSG_PACK_CONVERT_FAIL(2003, "msgPack转换异常");
 
     private int value;
 

@@ -41,7 +41,7 @@ public class ApplicationStartListener implements ApplicationListener<ContextRefr
 
         BeanUtils.setFactory(context);
 
-        initMqttClient();
+//        initMqttClient();
 
         logger.info("application start init success");
     }

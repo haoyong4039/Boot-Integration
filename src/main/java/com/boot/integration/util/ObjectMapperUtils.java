@@ -16,7 +16,7 @@ import java.util.Map;
  *
  * @author haoyong
  */
-public class JacksonUtils
+public class ObjectMapperUtils
 {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
