@@ -36,20 +36,20 @@ public class RedisConfig
         return redisTemplate;
     }
 
-    @Bean
-    public JedisCluster getJedisCluster()
-    {
-        //获取服务器数组
-        String[] serverArray = redisProperties.getClusterNodes().split(",");
-
-        Set<HostAndPort> nodes = new HashSet<>();
-
-        for (String ipPort : serverArray)
-        {
-            String[] ipPortPair = ipPort.split(":");
-            nodes.add(new HostAndPort(ipPortPair[0].trim(), Integer.valueOf(ipPortPair[1].trim())));
-        }
-
-        return new JedisCluster(nodes, new GenericObjectPoolConfig());// 可设置密码
-    }
+//    @Bean
+//    public JedisCluster getJedisCluster()
+//    {
+//        //获取服务器数组
+//        String[] serverArray = redisProperties.getClusterNodes().split(",");
+//
+//        Set<HostAndPort> nodes = new HashSet<>();
+//
+//        for (String ipPort : serverArray)
+//        {
+//            String[] ipPortPair = ipPort.split(":");
+//            nodes.add(new HostAndPort(ipPortPair[0].trim(), Integer.valueOf(ipPortPair[1].trim())));
+//        }
+//
+//        return new JedisCluster(nodes, new GenericObjectPoolConfig());// 可设置密码
+//    }
 }
