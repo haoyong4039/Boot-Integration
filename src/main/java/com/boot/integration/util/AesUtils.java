@@ -32,13 +32,16 @@ public class AesUtils
 
             Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);// 创建密码器
 
-            byte[] byteContent = content.getBytes("utf-8");
-
             cipher.init(Cipher.ENCRYPT_MODE, sKey);// 使用密钥初始化，设置为加密模式
 
+            // 1.序列化
+            byte[] byteContent = content.getBytes("utf-8");
+
+            // 2.加密
             byte[] result = cipher.doFinal(byteContent);// 加密
 
-            return Base64.encodeBase64String(result);//通过Base64转码返回
+            // 3.Base64转码为字符串
+            return Base64.encodeBase64String(result);
         }
         catch (Exception ex)
         {
@@ -65,8 +68,13 @@ public class AesUtils
 
             cipher.init(Cipher.DECRYPT_MODE, sKey);// 使用密钥初始化，设置为解密模式
 
-            byte[] result = cipher.doFinal(Base64.decodeBase64(content));// 解密
+            // 1.base64转码为字节
+            byte[] bytes = Base64.decodeBase64(content);
 
+            // 2.解密
+            byte[] result = cipher.doFinal(bytes);
+
+            // 3.反序列化
             return new String(result, "utf-8");
         }
         catch (Exception ex)
