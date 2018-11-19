@@ -40,16 +40,6 @@ import java.util.*;
 public class HttpUtils
 {
     /**
-     * response响应code码
-     */
-    public static final String RET_CODE = "retCode";
-
-    /**
-     * response响应数据
-     */
-    public static final String RET_DATA = "retData";
-
-    /**
      * 请求编码utf-8
      */
     private static String charset = "UTF-8";
@@ -81,90 +71,6 @@ public class HttpUtils
     };
 
     /**
-     * get请求提交
-     *
-     * @param uri          -请求的路径
-     * @param headerParams -请求头参数map
-     * @param urlParams    -请求参数map
-     */
-    public static String sendByGet(String uri, Map<String, String> headerParams, Map<String, String> urlParams)
-        throws Exception
-    {
-
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-
-        // 结果返回
-        String result = null;
-
-        // get请求
-        HttpGet get = null;
-
-        // 响应的值
-        HttpResponse response = null;
-
-        try
-        {
-            get = new HttpGet();
-
-            // 请求头参数设置
-            if (headerParams != null && !headerParams.isEmpty())
-            {
-                Set<String> keys = headerParams.keySet();
-                // 设置请求头
-                for (String key : keys)
-                {
-                    get.setHeader(key, headerParams.get(key));
-                }
-            }
-            // 拼装get请求参数
-            List<NameValuePair> params = null;
-
-            // 设置请求参数
-            if (urlParams != null && !urlParams.isEmpty())
-            {
-                params = new ArrayList<NameValuePair>();
-                Set<String> keys = urlParams.keySet();
-                for (String key : keys)
-                {
-                    params.add(new BasicNameValuePair(key, urlParams.get(key)));
-                }
-                // 如果有中文进行编码
-                // String param = URLEncodedUtils.format(params,charset);
-                String param = EntityUtils.toString(new UrlEncodedFormEntity(params, charset));
-
-                // 组装请求参数
-                get.setURI(new URI(uri + "?" + param));
-            }
-            else
-            {
-                get.setURI(new URI(uri));
-            }
-            // 执行请求
-            response = httpClient.execute(get);
-
-            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
-            {
-                // 结果返回
-                result = EntityUtils.toString(response.getEntity());
-            }
-
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-        finally
-        {
-            // 关闭response
-            closeHttpResponse(response);
-
-            //关闭client
-            closeableHttpClient(httpClient);
-        }
-        return result;
-    }
-
-    /**
      * 发送put请求
      *
      * @param url          请求url
@@ -174,42 +80,38 @@ public class HttpUtils
     public static String sendByPut(String url, Map<String, String> headerParams, String jsonStr)
         throws Exception
     {
+        // 创建httpClient对象
         CloseableHttpClient httpClient = HttpClients.createDefault();
-
-        // 请求
-        HttpPut httpPut = null;
+        // 响应体
+        HttpResponse httpResponse = null;
         // 返回结果
         String resultJson = null;
-        // 响应体
-        HttpResponse response = null;
+
         try
         {
-            httpPut = new HttpPut(url);
+            HttpPut httpPut = new HttpPut(url);
 
             StringEntity reqEntity = new StringEntity(jsonStr, charset);
-
             reqEntity.setContentEncoding(charset);
-
-            // 发送json数据需要设置contentTypes
             reqEntity.setContentType(contentType);
             if (headerParams != null && !headerParams.isEmpty())
             {
                 Set<String> keys = headerParams.keySet();
-                // 设置请求头
                 for (String key : keys)
                 {
                     httpPut.setHeader(key, headerParams.get(key));
                 }
             }
+
             httpPut.setEntity(reqEntity);
 
-            response = httpClient.execute(httpPut);
+            httpResponse = httpClient.execute(httpPut);
 
-            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
+            if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
             {
-                resultJson = EntityUtils.toString(response.getEntity());// 返回json格式：
+                // 返回json格式
+                resultJson = EntityUtils.toString(httpResponse.getEntity());
             }
-
         }
         catch (Exception e)
         {
@@ -217,10 +119,8 @@ public class HttpUtils
         }
         finally
         {
-            // 关闭response
-            closeHttpResponse(response);
+            closeHttpResponse(httpResponse);
 
-            //关闭client
             closeableHttpClient(httpClient);
         }
 
@@ -237,119 +137,37 @@ public class HttpUtils
     public static String sendByPost(String url, Map<String, String> headerParams, String jsonStr)
         throws Exception
     {
+        // 创建httpClient对象
         CloseableHttpClient httpClient = HttpClients.createDefault();
-
-        // 请求
-        HttpPost post = null;
+        // 响应体
+        HttpResponse httpResponse = null;
         // 返回结果
         String resultJson = null;
-        // 响应体
-        HttpResponse response = null;
+
         try
         {
-            post = new HttpPost(url);
+            HttpPost httpPost = new HttpPost(url);
 
             StringEntity reqEntity = new StringEntity(jsonStr, charset);
-
             reqEntity.setContentEncoding(charset);
-
-            // 发送json数据需要设置contentTypes
             reqEntity.setContentType(contentType);
             if (headerParams != null && !headerParams.isEmpty())
             {
                 Set<String> keys = headerParams.keySet();
-                // 设置请求头
-                for (String key : keys)
-                {
-                    post.setHeader(key, headerParams.get(key));
-                }
-            }
-            post.setEntity(reqEntity);
-
-            response = httpClient.execute(post);
-
-            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
-            {
-                resultJson = EntityUtils.toString(response.getEntity());// 返回json格式：
-            }
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-        finally
-        {
-            // 关闭response
-            closeHttpResponse(response);
-
-            //关闭client
-            closeableHttpClient(httpClient);
-        }
-
-        return resultJson;
-    }
-
-    /**
-     * 发送post请求
-     *
-     * @param url
-     * @param headerParams
-     * @param bodyParams
-     */
-    public static String sendByPost(String url, Map<String, String> headerParams, Map<String, String> bodyParams)
-        throws Exception
-    {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-
-        // 响应数据字符串
-        StringBuilder responseBuilder = new StringBuilder();
-
-        // 读buffer流
-        BufferedReader reader = null;
-
-        // http 响应对象
-        HttpResponse response = null;
-
-        // http请求方式
-        HttpPost httpPost = null;
-        try
-        {
-            httpPost = new HttpPost(url);
-
-            // 请求头参数设置
-            if (headerParams != null && !headerParams.isEmpty())
-            {
-                Set<String> keys = headerParams.keySet();
-                // 设置请求头
                 for (String key : keys)
                 {
                     httpPost.setHeader(key, headerParams.get(key));
                 }
             }
-            // 拼装get请求参数
-            List<NameValuePair> params = null;
 
-            // 设置请求参数
-            if (bodyParams != null && !bodyParams.isEmpty())
+            httpPost.setEntity(reqEntity);
+
+            httpResponse = httpClient.execute(httpPost);
+
+            if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
             {
-                params = new ArrayList<NameValuePair>();
-                Set<String> keys = bodyParams.keySet();
-                for (String key : keys)
-                {
-                    params.add(new BasicNameValuePair(key, bodyParams.get(key)));
-                }
-            }
-            HttpEntity entity = new UrlEncodedFormEntity(params);
-
-            httpPost.setEntity(entity);
-
-            response = httpClient.execute(httpPost);
-            reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-
-            String lines = "";
-            while ((lines = reader.readLine()) != null)
-            {
-                responseBuilder.append(lines);
+                // 返回json格式
+                resultJson = EntityUtils.toString(httpResponse.getEntity());
             }
         }
         catch (Exception e)
@@ -358,14 +176,12 @@ public class HttpUtils
         }
         finally
         {
-            // 关闭response
-            closeHttpResponse(response);
+            closeHttpResponse(httpResponse);
 
-            //关闭client
             closeableHttpClient(httpClient);
         }
 
-        return responseBuilder.toString();
+        return resultJson;
     }
 
     /**
@@ -378,40 +194,39 @@ public class HttpUtils
     public static String sendByPostIgnoreSSL(String url, Map<String, String> headerParams, String jsonStr)
         throws Exception
     {
+        // 创建httpClient对象
         CloseableHttpClient httpClient = getHttpClientIgnoreSSL();
-
-        // 请求
-        HttpPost post = null;
+        // 响应体
+        HttpResponse httpResponse = null;
         // 返回结果
         String resultJson = null;
-        // 响应体
-        HttpResponse response = null;
+        // 请求
+        HttpPost httpPost = null;
+
         try
         {
-            post = new HttpPost(url);
+            httpPost = new HttpPost(url);
 
             StringEntity reqEntity = new StringEntity(jsonStr, charset);
-
             reqEntity.setContentEncoding(charset);
-
-            // 发送json数据需要设置contentTypes
             reqEntity.setContentType(contentType);
             if (headerParams != null && !headerParams.isEmpty())
             {
                 Set<String> keys = headerParams.keySet();
-                // 设置请求头
                 for (String key : keys)
                 {
-                    post.setHeader(key, headerParams.get(key));
+                    httpPost.setHeader(key, headerParams.get(key));
                 }
             }
-            post.setEntity(reqEntity);
 
-            response = httpClient.execute(post);
+            httpPost.setEntity(reqEntity);
 
-            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
+            httpResponse = httpClient.execute(httpPost);
+
+            if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
             {
-                resultJson = EntityUtils.toString(response.getEntity());// 返回json格式：
+                // 返回json格式
+                resultJson = EntityUtils.toString(httpResponse.getEntity());
             }
         }
         catch (Exception e)
@@ -420,10 +235,8 @@ public class HttpUtils
         }
         finally
         {
-            // 关闭response
-            closeHttpResponse(response);
+            closeHttpResponse(httpResponse);
 
-            // 关闭client
             closeableHttpClient(httpClient);
         }
 
@@ -449,11 +262,7 @@ public class HttpUtils
     }
 
     /**
-     * <pre>
-     * <一句话功能简述>
-     * 关闭bufferReader 流
-     * <功能详细描述>
-     * </pre>
+     * 关闭bufferReader流
      *
      * @param closeableHttpClient
      */
@@ -472,14 +281,9 @@ public class HttpUtils
     }
 
     /**
-     * <pre>
-     * <一句话功能简述>
      * 关闭HttpResponse 流
-     * <功能详细描述>
-     * </pre>
      *
      * @param response
-     * @see [类、类#方法、类#成员]
      */
     private static void closeHttpResponse(HttpResponse response)
     {
