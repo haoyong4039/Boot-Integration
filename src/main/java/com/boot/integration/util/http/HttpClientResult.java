@@ -1,4 +1,4 @@
-package com.boot.integration.dto;
+package com.boot.integration.util.http;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.boot.integration.util;
+package com.boot.integration.util.plat;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

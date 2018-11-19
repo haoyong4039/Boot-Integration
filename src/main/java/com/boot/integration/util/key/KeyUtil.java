@@ -1,4 +1,4 @@
-package com.boot.integration.util;
+package com.boot.integration.util.key;
 
 import java.util.Random;
 

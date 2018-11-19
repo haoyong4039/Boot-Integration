@@ -2,7 +2,7 @@ package com.boot.integration.conf.seckill;
 
 import com.boot.integration.exeption.CustomCode;
 import com.boot.integration.exeption.CustomException;
-import com.boot.integration.util.KeyUtil;
+import com.boot.integration.util.key.KeyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

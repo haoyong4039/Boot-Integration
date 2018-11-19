@@ -1,4 +1,4 @@
-package com.boot.integration.util;
+package com.boot.integration.util.data;
 
 import com.boot.integration.exeption.CustomCode;
 import com.boot.integration.exeption.CustomException;

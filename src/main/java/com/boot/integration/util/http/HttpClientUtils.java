@@ -1,6 +1,5 @@
-package com.boot.integration.util;
+package com.boot.integration.util.http;
 
-import com.boot.integration.dto.HttpClientResult;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;

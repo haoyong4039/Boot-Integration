@@ -1,4 +1,4 @@
-package com.boot.integration.util;
+package com.boot.integration.util.http;
 
 import org.apache.http.*;
 import org.apache.http.client.entity.UrlEncodedFormEntity;

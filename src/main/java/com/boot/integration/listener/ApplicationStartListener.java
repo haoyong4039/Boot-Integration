@@ -2,7 +2,7 @@ package com.boot.integration.listener;
 
 import com.boot.integration.conf.mtqq.service.ClientOneService;
 import com.boot.integration.conf.mtqq.service.ClientTwoService;
-import com.boot.integration.util.BeanUtils;
+import com.boot.integration.util.plat.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;

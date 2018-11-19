@@ -1,4 +1,4 @@
-package com.boot.integration.util;
+package com.boot.integration.util.secret;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,7 +10,7 @@ import org.apache.commons.codec.binary.Base64;
 /**
  * @desc AES 加密工具类
  */
-public class AesUtils
+public class AesSecretUtils
 {
 
     private static final String KEY_ALGORITHM = "AES";
@@ -45,7 +45,7 @@ public class AesUtils
         }
         catch (Exception ex)
         {
-            Logger.getLogger(AesUtils.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AesSecretUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
@@ -79,7 +79,7 @@ public class AesUtils
         }
         catch (Exception ex)
         {
-            Logger.getLogger(AesUtils.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AesSecretUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
@@ -92,11 +92,11 @@ public class AesUtils
         String password = "42d5a42ddebfc247";
 
         //加密
-        String enResult = AesUtils.encrypt(content, password);
+        String enResult = AesSecretUtils.encrypt(content, password);
         System.out.println(enResult);
 
         //解密
-        String deResult = AesUtils.decrypt(enResult, password);
+        String deResult = AesSecretUtils.decrypt(enResult, password);
         System.out.println(deResult);
     }
 
