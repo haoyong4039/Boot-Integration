@@ -5,6 +5,7 @@ import com.boot.integration.exeption.CustomException;
 import com.boot.integration.model.User;
 import com.boot.integration.util.data.ObjectMapperUtils;
 import com.boot.integration.util.data.MessagePackUtils;
+import com.boot.integration.util.http.HttpCovert;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -125,6 +128,32 @@ public class TestController
             System.out.println(user);
         }
         catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * <pre>
+     * <一句话功能简述>
+     * 将流转为字符串
+     * <功能详细描述>
+     * </pre>
+     *
+     * @author haoyong
+     */
+    @RequestMapping(value = "/input/covert", method = RequestMethod.POST)
+    public void inputCovert(HttpServletRequest request, HttpServletResponse response)
+    {
+        try
+        {
+            System.out.println(HttpCovert.convertStreamToMsg(request.getInputStream()));
+        }
+        catch (CustomException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
         {
             e.printStackTrace();
         }
