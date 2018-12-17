@@ -1,10 +1,9 @@
 package com.boot.integration.controller;
 
-import com.boot.integration.dto.ResponseDto;
 import com.boot.integration.exeption.CustomCode;
 import com.boot.integration.exeption.CustomException;
-import com.boot.integration.model.User;
 import com.boot.integration.service.UserService;
+import com.boot.integration.util.web.BaseResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -36,24 +36,31 @@ public class UserController
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/query/role/{userId}", method = RequestMethod.GET)
-    public ResponseDto queryUserRole(@PathVariable Long userId) throws CustomException
+    public Map<String, Object> queryUserRole(@PathVariable Long userId)
     {
+        String retCode = CustomCode.SUCCESS.getValue();
+        String retMsg = CustomCode.SUCCESS.getMessage();
+        Object retData = null;
 
-        logger.info("userId:{}", userId);
+        try
+        {
+            logger.info("userId:{}", userId);
 
-        User user = userService.queryUserRoles(userId);
+            retData = userService.queryUserRoles(userId);
+        }
+        catch (CustomException e)
+        {
+            logger.info("CustomException:{}",e);
+            retCode = e.getValue();
+            retMsg = e.getMessage();
+        }
 
-        // 设置返回格式
-        ResponseDto responseDto = new ResponseDto();
-        responseDto.setRetCode(CustomCode.SUCCESS.getValue());
-        responseDto.setRetData(user);
-
-        return responseDto;
+        return BaseResponse.getResponseMap(retCode, retMsg, retData);
     }
 
     @RequestMapping(value = "/query/principal", method = RequestMethod.GET)
     public void getPrincipal(Principal principal)
     {
-        logger.info("principal:{}",principal);
+        logger.info("principal:{}", principal);
     }
 }

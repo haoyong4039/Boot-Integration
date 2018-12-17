@@ -31,8 +31,7 @@ public class UserServiceImpl implements UserService
     @Autowired
     private RedisUtil redisUtil;
 
-    public User queryUserRoles(Long userId)
-        throws CustomException
+    public User queryUserRoles(Long userId) throws CustomException
     {
         User user = new User();
 

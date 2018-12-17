@@ -3,7 +3,7 @@ package com.boot.integration.exeption;
 public class CustomException extends Exception
 {
 
-    private int value;
+    private String value;
 
     public CustomException()
     {
@@ -16,18 +16,18 @@ public class CustomException extends Exception
         this.value = customCode.getValue();
     }
 
-    public CustomException(int value, String message)
+    public CustomException(String value, String message)
     {
         super(message);
         this.value = value;
     }
 
-    public int getValue()
+    public String getValue()
     {
         return value;
     }
 
-    public void setValue(int value)
+    public void setValue(String value)
     {
         this.value = value;
     }
