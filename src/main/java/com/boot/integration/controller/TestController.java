@@ -36,8 +36,6 @@ public class TestController
      * 通过JSONObject直接获取属性值
      * <功能详细描述>
      * </pre>
-     *
-     * @author haoyong
      */
     @RequestMapping(value = "/json", method = RequestMethod.POST)
     public void readValue(@RequestBody JSONObject jsonObject) throws CustomException, IOException
