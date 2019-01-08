@@ -10,8 +10,9 @@ public class RepeatController
 {
 
     @CacheLock(prefix = "books")
+    @CacheParam(name = "access_token")
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
-    public String query(@CacheParam(name = "access_token") @RequestParam String access_token)
+    public String submit(@RequestParam String access_token)
     {
         return "success - " + access_token;
     }

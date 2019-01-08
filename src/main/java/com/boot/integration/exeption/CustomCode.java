@@ -8,6 +8,8 @@ public enum CustomCode
 
     ERROR_SYSTEM("-1", "系统异常"),
 
+    ERROR_TOKEN_NULL("100", "token为空"),
+
     ERROR_ACCESS_DENIED("101", "权限不足"),
 
     ERROR_TOKEN("102", "token异常"),

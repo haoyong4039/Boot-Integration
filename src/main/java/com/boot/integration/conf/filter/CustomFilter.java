@@ -34,11 +34,7 @@ public class CustomFilter implements Filter
 
         String url = request.getRequestURI();
 
-        logger.info("visit url:{}",url);
-
         Principal principal = request.getUserPrincipal();
-
-        logger.info("principal:{}",principal);
 
         chain.doFilter(request, response);
     }
