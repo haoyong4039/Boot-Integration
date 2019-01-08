@@ -6,6 +6,8 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -20,6 +22,8 @@ import java.lang.reflect.Method;
 @Configuration
 public class LockMethodInterceptor
 {
+    protected Logger logger = LoggerFactory.getLogger(getClass());
+
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
@@ -37,6 +41,9 @@ public class LockMethodInterceptor
             throw new CustomException(CustomCode.ERROR_LOCK_KEY_NULL);
         }
         final String lockKey = lockKeyGenerator.getLockKey(pjp);
+
+        logger.info("lockKey - {}",lockKey);
+
         try
         {
             final Boolean success = stringRedisTemplate.opsForValue().setIfAbsent(lockKey, "1");

@@ -54,8 +54,6 @@ public class HttpRequestAspect
 
             String accessToken = request.getHeader("AccessToken");
 
-            System.out.println(accessToken);
-
             // TODO:此处可进行对请求的判断
 
             return pjp.proceed();// 返回原方法的返回值
