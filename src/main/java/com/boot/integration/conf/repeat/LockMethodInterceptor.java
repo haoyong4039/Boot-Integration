@@ -15,9 +15,6 @@ import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Method;
 
-/**
- * redis 方案
- */
 @Aspect
 @Configuration
 public class LockMethodInterceptor

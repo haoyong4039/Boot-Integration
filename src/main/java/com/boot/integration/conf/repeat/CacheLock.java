@@ -3,9 +3,6 @@ package com.boot.integration.conf.repeat;
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author haoyong
- */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

@@ -5,11 +5,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
@@ -33,17 +30,17 @@ public class LockKeyGeneratorImpl implements LockKeyGenerator
         // 获取方法上的CacheLock注解
         CacheLock lockAnnotation = method.getAnnotation(CacheLock.class);
 
-        // 1.获取方法的所有参数
+        // 获取方法的所有参数
         final Parameter[] parameters = method.getParameters();
-        // 2.获取方法的所有参数值
+        // 获取方法的所有参数值
         final Object[] args = pjp.getArgs();
 
         StringBuilder builder = new StringBuilder();
 
-        // 解析方法里面带CacheParam注解的参数
+        // 解析含CacheParam注解的参数
         for (int i = 0; i < parameters.length; i++)
         {
-            // 3.提取CacheParam注解
+            // 提取CacheParam注解
             final CacheParam annotation = parameters[i].getAnnotation(CacheParam.class);
             // 如果为空，说明该参数不含CacheParam注解
             if (annotation == null)
