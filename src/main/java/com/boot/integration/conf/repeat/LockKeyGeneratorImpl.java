@@ -12,10 +12,9 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
 /**
- * 上一章说过通过接口注入的方式去写不同的生成规则;
+ * 通过注解参数生成锁;
  *
- * @author Levin
- * @since 2018/6/13 0026
+ * @author haoyong
  */
 @Service
 public class LockKeyGeneratorImpl implements LockKeyGenerator
@@ -26,9 +25,12 @@ public class LockKeyGeneratorImpl implements LockKeyGenerator
     {
         MethodSignature signature = (MethodSignature)pjp.getSignature();
         Method method = signature.getMethod();
+        // 获取方法上的CacheLock注解
         CacheLock lockAnnotation = method.getAnnotation(CacheLock.class);
 
+        // 1.获取到所有的参数值的数组
         final Object[] args = pjp.getArgs();
+        // 2.获取到方法的所有参数名称的字符串数组
         final Parameter[] parameters = method.getParameters();
 
         StringBuilder builder = new StringBuilder();
@@ -36,6 +38,7 @@ public class LockKeyGeneratorImpl implements LockKeyGenerator
         // TODO 默认解析方法里面带 CacheParam 注解的属性,如果没有尝试着解析实体对象中的
         for (int i = 0; i < parameters.length; i++)
         {
+            // 3.获取参数中的CacheParam注解
             final CacheParam annotation = parameters[i].getAnnotation(CacheParam.class);
             if (annotation == null)
             {
