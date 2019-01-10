@@ -36,12 +36,13 @@ public class LockMethodInterceptor
         MethodSignature signature = (MethodSignature)pjp.getSignature();
         Method method = signature.getMethod();
         CacheLock lock = method.getAnnotation(CacheLock.class);
+
         if (StringUtils.isEmpty(lock.prefix()))
         {
             throw new CustomException(CustomCode.ERROR_LOCK_KEY_NULL);
         }
-        final String lockKey = lockKeyGenerator.getLockKey(pjp);
 
+        final String lockKey = lockKeyGenerator.getLockKey(pjp);
         logger.info("lockKey - {}",lockKey);
 
         try
