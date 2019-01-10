@@ -27,6 +27,7 @@ public class LockKeyGeneratorImpl implements LockKeyGenerator
     @Override
     public String getLockKey(ProceedingJoinPoint pjp)
     {
+        // 获取连接点的方法签名对象
         MethodSignature signature = (MethodSignature)pjp.getSignature();
         Method method = signature.getMethod();
         // 获取方法上的CacheLock注解
@@ -42,8 +43,9 @@ public class LockKeyGeneratorImpl implements LockKeyGenerator
         // 解析方法里面带CacheParam注解的参数
         for (int i = 0; i < parameters.length; i++)
         {
-            // 3.获取带CacheParam注解的参数
+            // 3.提取CacheParam注解
             final CacheParam annotation = parameters[i].getAnnotation(CacheParam.class);
+            // 如果为空，说明该参数不含CacheParam注解
             if (annotation == null)
             {
                 continue;
