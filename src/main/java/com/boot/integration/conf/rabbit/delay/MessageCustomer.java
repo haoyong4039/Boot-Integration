@@ -1,4 +1,4 @@
-package com.boot.integration.conf.rabbit;
+package com.boot.integration.conf.rabbit.delay;
 
 import com.boot.integration.model.User;
 import com.rabbitmq.client.Channel;

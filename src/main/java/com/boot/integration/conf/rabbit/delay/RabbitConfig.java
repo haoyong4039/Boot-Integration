@@ -1,4 +1,4 @@
-package com.boot.integration.conf.rabbit;
+package com.boot.integration.conf.rabbit.delay;
 
 import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;

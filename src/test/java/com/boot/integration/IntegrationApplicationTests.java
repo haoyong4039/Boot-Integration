@@ -1,6 +1,6 @@
 package com.boot.integration;
 
-import com.boot.integration.conf.rabbit.MessageProducer;
+import com.boot.integration.conf.rabbit.delay.MessageProducer;
 import com.boot.integration.model.Order;
 import com.boot.integration.model.User;
 import com.boot.integration.service.impl.OrderService;
@@ -32,10 +32,10 @@ public class IntegrationApplicationTests
     }
 
     @Test
-    public void testSend() throws Exception
+    public void testOrderSend() throws Exception
     {
         Order order = new Order();
-        order.setId(20003);
+        order.setId(20002);
         order.setName("testOrder");
         order.setMessageId(System.currentTimeMillis() + "$" + UUID.randomUUID().toString());
         orderService.createOrder(order);

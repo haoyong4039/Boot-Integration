@@ -1,6 +1,6 @@
 package com.boot.integration.service.impl;
 
-import com.boot.integration.conf.rabbit.RabbitOrderSender;
+import com.boot.integration.conf.rabbit.order.RabbitOrderSender;
 import com.boot.integration.constant.Constants;
 import com.boot.integration.mapper.BrokerMessageLogMapper;
 import com.boot.integration.mapper.OrderMapper;

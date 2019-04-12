@@ -1,4 +1,4 @@
-package com.boot.integration.conf.rabbit;
+package com.boot.integration.conf.rabbit.order;
 
 import com.boot.integration.constant.Constants;
 import com.boot.integration.mapper.BrokerMessageLogMapper;
@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+/**
+ * 订单发送
+ */
 @Component
 public class RabbitOrderSender
 {
