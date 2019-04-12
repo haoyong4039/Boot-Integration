@@ -9,9 +9,9 @@ druid:
     max-active: 20
 
 spring:
-    # redis连接配置
+    # redis配置
     redis:
-        host: localhost
+        host: 127.0.0.1
         port: 6379
         database: 1
         pool:
@@ -28,13 +28,17 @@ spring:
         # 集群节点
 #        clusterNodes: 47.106.187.24:9001,47.106.187.24:9002,47.106.187.24:9003,47.106.187.24:9004,47.106.187.24:9005,47.106.187.24:9006
 
-    # rabbitmq连接配置
+    # rabbitmq配置
     rabbitmq:
-        host: localhost
-        port: 5672
+        addresses: 127.0.0.1:5672
         username: guest
         password: guest
-        publisher-confirms: true
         virtual-host: /
+        # 生产端配置
+        publisher-confirms: true
+        publisher-returns: true
+        # 消费端配置
         listener:
-          acknowledge-mode: manual
+            simple:
+              # manual:手动 ack（确认）
+              acknowledge-mode: manual
