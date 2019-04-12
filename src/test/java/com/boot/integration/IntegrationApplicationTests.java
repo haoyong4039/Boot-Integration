@@ -35,7 +35,7 @@ public class IntegrationApplicationTests
     public void testOrderSend() throws Exception
     {
         Order order = new Order();
-        order.setId(20002);
+        order.setId(20007);
         order.setName("testOrder");
         order.setMessageId(System.currentTimeMillis() + "$" + UUID.randomUUID().toString());
         orderService.createOrder(order);
