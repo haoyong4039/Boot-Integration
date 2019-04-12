@@ -24,7 +24,7 @@ public class IntegrationApplicationTests
     private OrderService orderService;
 
     @Test
-    public void send()
+    public void testDelaySend()
     {
         User user = new User();
         user.setUsername("haoyong");
