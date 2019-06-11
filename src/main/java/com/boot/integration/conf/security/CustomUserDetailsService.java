@@ -39,10 +39,9 @@ public class CustomUserDetailsService implements UserDetailsService
         user.setUsername(username);
         user = userMapper.selectOne(user);
 
-        logger.info("user:{}",user);
-
         if (user == null)
         {
+            logger.info("Check Account Error : Not Exist");
             throw new UsernameNotFoundException("Account Not Exist");
         }
 
