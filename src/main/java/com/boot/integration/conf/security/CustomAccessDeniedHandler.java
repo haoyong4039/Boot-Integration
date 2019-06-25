@@ -21,13 +21,11 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws ServletException
     {
+        response.setContentType("application/json");
 
         String retCode = CustomCode.ERROR_ACCESS_DENIED.getValue();
         String retMsg = accessDeniedException.getMessage();
-
-        Map<String, Object> responseMap = BaseResponse.getResponseMap(retCode, retMsg, null);
-
-        response.setContentType("application/json");
+        Map<String, Object> responseMap = BaseResponse.getResponseMap(retCode, retMsg, "");
 
         try
         {

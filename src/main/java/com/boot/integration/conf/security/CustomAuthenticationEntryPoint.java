@@ -22,13 +22,11 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws ServletException
     {
+        response.setContentType("application/json");
 
         String retCode = CustomCode.ERROR_TOKEN.getValue();
         String retMsg = authException.getMessage();
-
-        Map<String, Object> responseMap = BaseResponse.getResponseMap(retCode, retMsg, null);
-
-        response.setContentType("application/json");
+        Map<String, Object> responseMap = BaseResponse.getResponseMap(retCode, retMsg, "");
 
         try
         {

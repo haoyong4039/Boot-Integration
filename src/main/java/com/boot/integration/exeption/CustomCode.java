@@ -8,7 +8,7 @@ public enum CustomCode
 
     ERROR_ACCESS_DENIED("101", "权限不足"),
 
-    ERROR_TOKEN("102", "token异常"),
+    ERROR_TOKEN("102", "token错误"),
 
     ERROR_USER_NOT_EXIST("1001", "用户不存在"),
 
