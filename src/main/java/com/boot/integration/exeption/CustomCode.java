@@ -4,11 +4,7 @@ public enum CustomCode
 {
     SUCCESS("0", "请求成功"),
 
-    FAIL("1", "请求失败"),
-
     ERROR_SYSTEM("-1", "系统异常"),
-
-    ERROR_TOKEN_NULL("100", "token为空"),
 
     ERROR_ACCESS_DENIED("101", "权限不足"),
 

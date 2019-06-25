@@ -18,8 +18,8 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler
     @ExceptionHandler(CustomException.class)
     public Object customExceptionHandler(CustomException e)
     {
-        logger.info("CustomExceptionHandler:{}",e);
+        e.printStackTrace();
 
-        return BaseResponse.getResponseMap(e.getValue(),e.getMessage(),null);
+        return BaseResponse.getResponseMap(e.getValue(),e.getMessage(),"");
     }
 }

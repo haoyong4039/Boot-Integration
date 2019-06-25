@@ -35,6 +35,7 @@ public class BaseResponse
         {
             retCode = CustomCode.ERROR_SYSTEM.getValue();
             retMsg = CustomCode.ERROR_SYSTEM.getMessage();
+            retData = "";
         }
 
         Map<String, Object> responseMap = new HashMap<>();
