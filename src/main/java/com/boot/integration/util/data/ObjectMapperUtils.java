@@ -2,9 +2,14 @@ package com.boot.integration.util.data;
 
 import com.boot.integration.exeption.CustomCode;
 import com.boot.integration.exeption.CustomException;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -135,4 +140,14 @@ public class ObjectMapperUtils
         }
     }
 
+    public static void main(String[] args)
+    {
+        String data = "[{\"menuId\":\"50\",\"opId\":\"5001,5002,5003\"}]";
+        JSONArray myJsonArray = JSONArray.fromObject(data);
+        for(int i=0;i<myJsonArray.size();i++)
+        {
+            System.out.println(myJsonArray.getJSONObject(i).get("menuId"));
+            System.out.println(myJsonArray.getJSONObject(i).get("opId"));
+        }
+    }
 }
